@@ -1,0 +1,53 @@
+{% extends "base.jinja2" %}
+{% block title %}
+幸运抽奖
+{% endblock %}
+{% block heading %}
+Who is Lucky
+{% endblock %}
+
+{% block content%}
+<div id="lucky-dog-container">
+    <div id="msg-doing" class='hide'>
+        <h3>正在努力地挑选... 嘿咻... 嘿咻... </h3>
+    </div>
+    <div id="msg-done" class='hide'>
+        <h4>好啦就是你啦</h4>
+        <div id="the-lucky-dog" class="alert alert-success">
+            BigEagle &lt;justin.w.xd@gmail.com&gt;
+        </div> 
+        <h4> 撒花</h4>
+    </div>
+</div>
+<div class="btn btn-lg btn-success" id="submit">走你</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#submit').click(function(){
+        $('#msg-done').addClass('hide');     
+        $('#msg-doing').removeClass('hide');
+        window.setTimeout(function(){
+            $.getJSON('{{ url_for("choose_luckydog")}}', function(r){
+                $('#the-lucky-dog').html(
+                "<b>" + r.name + "</b><br />" + r.email
+                );
+                $('#msg-doing').addClass('hide');     
+                $('#msg-done').removeClass('hide');
+            });
+        }, 1000); 
+    }); 
+});
+</script>
+{% endblock %}
+
+{% block style %}
+<style type="text/css">
+    #the-lucky-dog {
+        font-size: 2em; 
+    }
+</style>
+{% endblock %}
+{# vim: ft=jinja 
+#}

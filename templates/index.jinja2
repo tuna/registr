@@ -1,0 +1,112 @@
+{% extends "base.jinja2" %}
+{% block title %}
+现场注册
+{% endblock %}
+{% block heading %}
+Check In
+{% endblock %}
+{% block content%}
+<div class="alert alert-success" id="msg-success" style="display: none">
+签到成功
+</div>
+<div class="alert alert-danger" id="msg-error" style="display: none">
+出错啦！Bug Report！
+</div>
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" placeholder="姓名/昵称">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="email" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-0 col-sm-12">
+            <label class="col-sm-12 control-label" style='text-align: left;'>如何得知此次活动 From where did you know this event?</label>
+        </div>
+        <div class="col-sm-12" id="where">  
+            <span class="label label-selection label-default" data-val="renren">人人</span>
+            <span class="label label-selection label-default" data-val="haibao">海报</span>
+            <span class="label label-selection label-default" data-val="mail">邮件列表</span>
+            <span class="label label-selection label-default" data-val="linuxtoy">LinuxToy</span>
+            <span class="label label-selection label-default" data-val="weibo">Weibo</span>
+            <span class="label label-selection label-default" data-val="friends">朋友</span>
+        </div> 
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <div class="btn btn-default btn-success" id="submit">走你</div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+{% block style %}
+<style type="text/css">
+#where .label-selection {
+    font-weight: normal;
+    cursor: pointer;
+    font-size: 1em;
+    line-height: 32px;
+    margin-left: 35px;
+}
+</style>
+{% endblock%}
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function(){
+    var cleanUp = function() {
+        $('#name').val('');
+        $('#email').val('');
+        $('#where .selected').each(function(i, e){
+            $(e).removeClass('selected').removeClass('label-primary').addClass('label-default'); 
+        });
+    };
+    $('#where .label-selection').click(function(){
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected').removeClass('label-primary').addClass('label-default');
+        } else {
+            $(this).addClass('selected').addClass('label-primary').removeClass('label-default');
+        }
+    });
+    $('#submit').click(function(){
+        var fromWhere = [];
+        $('#where .selected').each(function(i, e){
+            fromWhere.push($(e).attr('data-val'));
+        });
+        var data = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            from: fromWhere
+        };
+        // console.log(JSON.stringify(data)); 
+        $('#msg-success').hide();
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('checkin') }}",
+            headers: {"Content-Type": "application/json"},
+            data: JSON.stringify(data),
+            success: function() {
+                $('#msg-success').show("fast", function() {
+                    window.setTimeout(function(){
+                        $('#msg-success').hide('slow');
+                    }, 1000);
+                });
+                cleanUp();        
+            },
+            error: function() {
+                $('#msg-error').show();
+            }
+        }); 
+
+    });
+});
+</script>
+{% endblock %}
+{# vim: ft=jinja 
+#}
