@@ -6,7 +6,7 @@ import csv
 import json
 import random
 
-CSV_FILE = "RMS.csv"
+CSV_FILE = "registration-2014-2.csv"
 
 app = Flask("tuna-registration")
 lock = Lock()
@@ -34,6 +34,24 @@ def checkin():
     return "OK"
 
 
+@app.route('/join', methods=['GET', 'POST'])
+def join():
+    if request.method == 'GET':
+        return render_template('join.jinja2')
+
+    assert request.method == 'POST'
+    with lock:
+        writer = get_csv_writer()
+        form = request.json
+        writer.writerow(
+            map(lambda x: x.encode('utf-8'),
+                [form['name'], form['gender'], form['stu_number'],
+                 form['department'], form['class'], form['email'], form['phone']
+                 ])
+        )
+    return 'OK'
+
+
 @app.route('/luckydog')
 def luckydog():
     return render_template("lucky.jinja2")
@@ -45,7 +63,6 @@ def choose_luckydog():
     lucky_dog = candidates.pop()
     print lucky_dog
     return json.dumps({"name": lucky_dog[0], "email": lucky_dog[1]})
-
 
 
 def get_csv_writer():

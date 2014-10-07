@@ -1,0 +1,158 @@
+{% extends "base.jinja2" %}
+{% block title %}
+加入TUNA
+{% endblock %}
+{% block heading %}
+Join
+{% endblock %}
+{% block content%}
+<div class="alert alert-success" id="msg-success" style="display: none">
+注册成功
+</div>
+<div class="alert alert-danger" id="msg-error" style="display: none">
+出错啦！ Bug Report!
+</div>
+<div class="alert alert-danger" id="msg-invalid" style="display: none">
+所有字段不能为空
+</div>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="text" class="form-control" name="name" id="name" placeholder="姓名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="gender" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10" id="gender-selection">
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="男"> 男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="女"> 女
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="春哥" disabled> 其他
+                </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="phone" class="col-sm-2 control-label">手机号</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="tel" class="form-control" name="phone" id="phone" placeholder="手机号">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="email" class="form-control" name="email" id="email" placeholder="Email">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="stu_number" class="col-sm-2 control-label">学号</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="number" class="form-control" id="stu_number" name="stu_number" placeholder="学号">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="department" class="col-sm-2 control-label">院系</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="text" class="form-control" id="department" name="department" placeholder="">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="class" class="col-sm-2 control-label">班级</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="text" class="form-control" id="class" name="class" placeholder="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-12">
+            <div class="btn btn-default btn-success" id="submit">走你</div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+{% block style %}
+<style type="text/css">
+#gender-selection {
+    text-align: left;
+}
+</style>
+{% endblock%}
+{% block js %}
+<script src="{{ url_for("static", filename="js/bootstrap3-typeahead.min.js")}}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var departments = ["计算机系", "电子系", "自动化系", "工物系", "软件学院", "微纳电子系", "电机系", 
+        "航院", "化工系", "材料系", "工业工程系", "建筑系", "土木系", "水利系", "环境学院", "机械系", 
+        "精仪系", "热能系", "汽车系", "数学系", "物理系", "化学系", "生命学院", "经管学院", "人文学院", 
+        "法学院", "美院", "医学院", "新闻系", "马院", "教研院", "交叉信息学院", "地学中心", "金融学院", 
+        "高等研究院", "社科", "五道口金融学院"];
+
+    var cleanUp = function() {
+        $('form input').val('');
+        $('.form-group').removeClass('has-error');
+    };
+
+    $('#department').typeahead({source: departments, minLength: 0});
+    
+    var validate = function() {
+        var valid = true;
+        $('form input[type!=radio]').each(function(){
+            console.log($(this).attr('name'));
+            if ($(this).val() == '') {
+                valid = false;
+                $(this).parents('.form-group').addClass('has-error');
+            }
+        });
+        return valid;
+    };
+
+    var getFormData = function() {
+        var data = {};
+        $('form input:enabled').each(function() {
+            var key = $(this).attr('name'), value = $(this).val();
+            data[key] = value;
+        });
+        data['gender'] = $('form input[name=gender]:checked').val();
+        return data;
+    };
+    
+    $('#submit').click(function(){
+        if (validate() == false) {
+            $('#msg-invalid').show();
+            return;
+        }
+        $('#msg-invalid').hide();
+        $('#msg-success').hide();
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('join') }}",
+            headers: {"Content-Type": "application/json"},
+            data: JSON.stringify(getFormData()),
+            success: function() {
+                $('#msg-success').show("fast", function() {
+                    window.setTimeout(function(){
+                        $('#msg-success').hide('slow');
+                    }, 1000);
+                });
+                cleanUp();        
+            },
+            error: function() {
+                $('#msg-error').show();
+            }
+        }); 
+
+    });
+});
+</script>
+{% endblock %}
+{# vim: ft=jinja 
+#}
