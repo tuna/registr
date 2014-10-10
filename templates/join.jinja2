@@ -18,29 +18,51 @@ Join
 
 <form class="form-horizontal" role="form">
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
+        <label for="name" class="col-sm-2 control-label">姓名</label>
         <div class="col-sm-10">
-            <input autocomplete="off" type="text" class="form-control" name="name" id="name" placeholder="姓名">
+            <input autocomplete="off" type="text" class="form-control" name="name" id="name" placeholder="Name">
         </div>
     </div>
     <div class="form-group">
-        <label for="gender" class="col-sm-2 control-label">Name</label>
+        <label for="gender" class="col-sm-2 control-label">性别(gender)</label>
         <div class="col-sm-10" id="gender-selection">
                 <label class="radio-inline">
-                    <input type="radio" name="gender" value="男"> 男
+                    <input type="radio" name="gender" value="男" checked> 男(male)
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="gender" value="女"> 女
+                    <input type="radio" name="gender" value="女"> 女(female)
                 </label>
                 <label class="radio-inline">
                     <input type="radio" name="gender" value="春哥" disabled> 其他
                 </label>
         </div>
     </div>
+    
+    <div class="form-group">
+        <label for="department" class="col-sm-2 control-label">院系</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="text" class="form-control" id="department" name="department" placeholder="Department">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="class" class="col-sm-2 control-label">班级</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="text" class="form-control" id="class" name="class" placeholder="Class">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="stu_number" class="col-sm-2 control-label">学号</label>
+        <div class="col-sm-10">
+            <input autocomplete="off" type="text" class="form-control" id="stu_number" name="stu_number" placeholder="Student Number">
+        </div>
+    </div>
+    
     <div class="form-group">
         <label for="phone" class="col-sm-2 control-label">手机号</label>
         <div class="col-sm-10">
-            <input autocomplete="off" type="tel" class="form-control" name="phone" id="phone" placeholder="手机号">
+            <input autocomplete="off" type="tel" class="form-control" name="phone" id="phone" placeholder="Phone Number">
         </div>
     </div>
     <div class="form-group">
@@ -49,31 +71,10 @@ Join
             <input autocomplete="off" type="email" class="form-control" name="email" id="email" placeholder="Email">
         </div>
     </div>
-    
-    <div class="form-group">
-        <label for="stu_number" class="col-sm-2 control-label">学号</label>
-        <div class="col-sm-10">
-            <input autocomplete="off" type="number" class="form-control" id="stu_number" name="stu_number" placeholder="学号">
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label for="department" class="col-sm-2 control-label">院系</label>
-        <div class="col-sm-10">
-            <input autocomplete="off" type="text" class="form-control" id="department" name="department" placeholder="">
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label for="class" class="col-sm-2 control-label">班级</label>
-        <div class="col-sm-10">
-            <input autocomplete="off" type="text" class="form-control" id="class" name="class" placeholder="">
-        </div>
-    </div>
 
     <div class="form-group">
         <div class="col-sm-12">
-            <div class="btn btn-default btn-success" id="submit">走你</div>
+            <input type="submit" class="btn btn-default btn-success" id="submit" value="走你(Go!)" />
         </div>
     </div>
 </form>
@@ -94,10 +95,13 @@ $(document).ready(function(){
         "航院", "化工系", "材料系", "工业工程系", "建筑系", "土木系", "水利系", "环境学院", "机械系", 
         "精仪系", "热能系", "汽车系", "数学系", "物理系", "化学系", "生命学院", "经管学院", "人文学院", 
         "法学院", "美院", "医学院", "新闻系", "马院", "教研院", "交叉信息学院", "地学中心", "金融学院", 
-        "高等研究院", "社科", "五道口金融学院"];
+        "高等研究院", "社科", "五道口金融学院", "核研院"];
 
     var cleanUp = function() {
-        $('form input').val('');
+        $('form input[type=text]').val('');
+        $('form input[type=email]').val('');
+        $('form input[type=number]').val('');
+        $('form input[type=tel]').val('');
         $('.form-group').removeClass('has-error');
     };
 
@@ -125,10 +129,10 @@ $(document).ready(function(){
         return data;
     };
     
-    $('#submit').click(function(){
+    $('form').submit(function(event){
         if (validate() == false) {
             $('#msg-invalid').show();
-            return;
+            return false;
         }
         $('#msg-invalid').hide();
         $('#msg-success').hide();
@@ -149,7 +153,7 @@ $(document).ready(function(){
                 $('#msg-error').show();
             }
         }); 
-
+        return false;
     });
 });
 </script>
