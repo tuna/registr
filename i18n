@@ -1,8 +1,8 @@
 #!/bin/bash
 
 root=$(dirname "$0")
-localedir=$root/locales
-pot=$localedir/message.pot
+localedir=$root/translations
+pot=$localedir/messages.pot
 babelcfg=$root/babel.cfg
 command=$1
 shift
