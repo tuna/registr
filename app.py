@@ -16,7 +16,7 @@ import pyjade
 CSV_FILE = "registration-2014-2.csv"
 
 app = Flask("tuna-registration")
-babel = Babel(app)
+babel = Babel()
 lock = Lock()
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -81,7 +81,9 @@ if __name__ == "__main__":
     # app.jinja_env.line_statement_prefix = '%'
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     app.jinja_env.globals['_'] = _
-    # app.config['BABEL_DEFAULT_LOCALE']='zh_CN'
+    app.config['BABEL_DEFAULT_LOCALE']='zh_CN'
+
+    babel.init_app(app)
     app.run(host='0.0.0.0', debug=True)
 
 # vim: ts=4 sw=4 sts=4 expandtab
