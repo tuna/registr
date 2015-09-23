@@ -19,11 +19,33 @@ app = Flask("tuna-registration")
 babel = Babel()
 lock = Lock()
 
+app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
+app.jinja_env.globals['_'] = _
+app.config['BABEL_DEFAULT_LOCALE']='zh_CN'
+
+babel.init_app(app)
+
 # The original coffeescript filter registered by pyjade is wrong for
 # its results are wrapped with `script` tag
 @pyjade.register_filter('coffeescript')
 def coffeescript_filter(text, ast):
     return coffeescript.compile(text)
+
+@babel.localeselector
+def get_locale():
+    # Try to retrieve locale from query strings.
+    locale = request.args.get('locale', None)
+    if locale is not None:
+        return locale
+
+    # print type(request.accept_languages.best_match(str(
+    locale = request.accept_languages.best_match(
+            list(str(translation) for translation in babel.list_translations()))
+    if locale is not None:
+        return locale
+
+    # Fall back to default locale
+    return None
 
 class JoinForm(Form):
     name = StringField(_(u'Name'), [InputRequired()])
@@ -78,12 +100,6 @@ if __name__ == "__main__":
         for row in r:
             row = map(lambda x: x.decode('utf-8'), row)
 
-    # app.jinja_env.line_statement_prefix = '%'
-    app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
-    app.jinja_env.globals['_'] = _
-    app.config['BABEL_DEFAULT_LOCALE']='zh_CN'
-
-    babel.init_app(app)
     app.run(host='0.0.0.0', debug=True)
 
 # vim: ts=4 sw=4 sts=4 expandtab
