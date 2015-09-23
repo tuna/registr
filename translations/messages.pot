@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-23 17:33+0800\n"
+"POT-Creation-Date: 2015-09-23 18:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,55 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.0\n"
 
-#: app.py:51
+#: app.py:53
 msgid "Name"
 msgstr ""
 
-#: app.py:52
+#: app.py:54
 msgid "Department"
 msgstr ""
 
-#: app.py:53
-msgid "Student Number"
+#: app.py:55
+msgid "Student Number (Optional)"
 msgstr ""
 
-#: app.py:54
+#: app.py:56
 msgid "Phone"
 msgstr ""
 
-#: app.py:54
+#: app.py:56
 msgid "This is not valid phone number"
 msgstr ""
 
-#: app.py:55
+#: app.py:57
 msgid "Email"
 msgstr ""
 
-#: app.py:57
+#: app.py:59
 msgid "Gender"
 msgstr ""
 
-#: app.py:59
+#: app.py:61
 msgid "Boy"
 msgstr ""
 
-#: app.py:60
+#: app.py:62
 msgid "Girl"
 msgstr ""
 
-#: templates/join.jade:6
+#: templates/join.jade:10
 msgid "Join TUNA"
 msgstr ""
 
-#: templates/join.jade:19
+#: templates/join.jade:27
 msgid "Register successfully"
 msgstr ""
 
-#: templates/join.jade:21
+#: templates/join.jade:29
 msgid "Join Us"
 msgstr ""
 
-#: templates/join.jade:24
+#: templates/join.jade:35
 msgid "Let's go"
 msgstr ""
 
