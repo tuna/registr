@@ -7,7 +7,7 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     title
       block title
-        | 加入TUNA
+        = _('Join TUNA')
     +link_css("bootstrap.min.css")
     +link_css("material-fullpalette.min.css")
     +link_css("ripples.min.css")
@@ -24,9 +24,9 @@ html(lang="en")
             .jumbotron.clearfix
               if success
                 .alert.alert-success#msg-success
-                  | 注册成功
+                  = _("Register successfully")
               h2
-                | Join Us
+                = _("Join Us")
               form(autocomplete="off", method="POST", novalidate)
                 each field in form
                   +render_field(field)
