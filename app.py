@@ -78,8 +78,9 @@ if __name__ == "__main__":
         for row in r:
             row = map(lambda x: x.decode('utf-8'), row)
 
-    app.jinja_env.line_statement_prefix = '%'
+    # app.jinja_env.line_statement_prefix = '%'
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
+    app.jinja_env.globals['_'] = _
     # app.config['BABEL_DEFAULT_LOCALE']='zh_CN'
     app.run(host='0.0.0.0', debug=True)
 
