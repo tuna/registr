@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-23 14:55+0800\n"
+"POT-Creation-Date: 2015-09-23 17:33+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.0\n"
 
-#: app.py:29
+#: app.py:51
 msgid "Name"
 msgstr ""
 
-#: app.py:30
+#: app.py:52
 msgid "Department"
 msgstr ""
 
-#: app.py:31
+#: app.py:53
 msgid "Student Number"
 msgstr ""
 
-#: app.py:32
+#: app.py:54
 msgid "Phone"
 msgstr ""
 
-#: app.py:32
+#: app.py:54
 msgid "This is not valid phone number"
 msgstr ""
 
-#: app.py:33
+#: app.py:55
 msgid "Email"
 msgstr ""
 
-#: app.py:35
+#: app.py:57
 msgid "Gender"
 msgstr ""
 
-#: app.py:37
+#: app.py:59
 msgid "Boy"
 msgstr ""
 
-#: app.py:38
+#: app.py:60
 msgid "Girl"
 msgstr ""
 
@@ -63,5 +63,9 @@ msgstr ""
 
 #: templates/join.jade:21
 msgid "Join Us"
+msgstr ""
+
+#: templates/join.jade:24
+msgid "Let's go"
 msgstr ""
 

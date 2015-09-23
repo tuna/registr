@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-23 14:55+0800\n"
+"POT-Creation-Date: 2015-09-23 17:33+0800\n"
 "PO-Revision-Date: 2015-09-23 16:48+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
@@ -17,39 +17,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.0\n"
 
-#: app.py:29
+#: app.py:51
 msgid "Name"
 msgstr "姓名"
 
-#: app.py:30
+#: app.py:52
 msgid "Department"
 msgstr "院系"
 
-#: app.py:31
+#: app.py:53
 msgid "Student Number"
 msgstr "学生号"
 
-#: app.py:32
+#: app.py:54
 msgid "Phone"
 msgstr "电话"
 
-#: app.py:32
+#: app.py:54
 msgid "This is not valid phone number"
 msgstr "这不是一个合法的号码"
 
-#: app.py:33
+#: app.py:55
 msgid "Email"
 msgstr ""
 
-#: app.py:35
+#: app.py:57
 msgid "Gender"
 msgstr "性别"
 
-#: app.py:37
+#: app.py:59
 msgid "Boy"
 msgstr "男"
 
-#: app.py:38
+#: app.py:60
 msgid "Girl"
 msgstr "女"
 
@@ -64,4 +64,8 @@ msgstr "注册成功"
 #: templates/join.jade:21
 msgid "Join Us"
 msgstr "加入我们"
+
+#: templates/join.jade:24
+msgid "Let's go"
+msgstr "走你"
 
