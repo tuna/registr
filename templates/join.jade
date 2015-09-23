@@ -27,7 +27,7 @@ html(lang="en")
                   | 注册成功
               h2
                 | Join Us
-              form(autocomplete="off", method="POST")
+              form(autocomplete="off", method="POST", novalidate)
                 each field in form
                   +render_field(field)
 
