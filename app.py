@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, request, g, render_template, make_response, escape
 from flask.ext.babel import lazy_gettext as _, Babel
+from babel import Locale
 from threading import Lock
 from flask_wtf import Form
 from wtforms import StringField, RadioField
@@ -21,9 +22,12 @@ lock = Lock()
 
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 app.jinja_env.globals['_'] = _
+app.jinja_env.globals['unicode'] = unicode
 app.config['BABEL_DEFAULT_LOCALE']='zh_CN'
 
 babel.init_app(app)
+
+all_locales = babel.list_translations() + [Locale('en', 'US')]
 
 # The original coffeescript filter registered by pyjade is wrong for
 # its results are wrapped with `script` tag
@@ -39,8 +43,7 @@ def get_locale():
         return locale
 
     # print type(request.accept_languages.best_match(str(
-    locale = request.accept_languages.best_match(
-            list(str(translation) for translation in babel.list_translations()))
+    locale = request.accept_languages.best_match(all_locales)
     if locale is not None:
         return locale
 
@@ -60,31 +63,17 @@ class JoinForm(Form):
                 (u'女', _(u'Girl'))])
 
 @app.route('/', methods=['GET', 'POST'])
-def base():
+def join():
     form = JoinForm(csrf_enabled=False)
     success = False
     if form.validate_on_submit():
         # save data
         success = True
     return render_template(
-            'join.jade', form=form, success=success)
-
-@app.route('/join', methods=['GET', 'POST'])
-def join():
-    if request.method == 'GET':
-        return render_template('join.jinja2')
-
-    assert request.method == 'POST'
-    with lock:
-        writer = get_csv_writer()
-        form = request.json
-        writer.writerow(
-            map(lambda x: x.encode('utf-8'),
-                [form['name'], form['gender'], form['stu_number'],
-                 form['department'], form['class'], form['email'], form['phone']
-                 ])
-        )
-    return 'OK'
+            'join.jade',
+            form=form,
+            success=success,
+            all_locales=all_locales)
 
 def get_csv_writer():
     if not hasattr(g, 'csv_file'):
