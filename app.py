@@ -1,38 +1,52 @@
 #!/usr/bin/env python2
 # -*- coding:utf-8 -*-
 from flask import Flask, request, g, render_template, make_response, escape
+from flask.ext.babel import lazy_gettext as _, Babel
 from threading import Lock
+from flask_wtf import Form
+from wtforms import StringField, RadioField
+from wtforms.fields.html5 import EmailField
+from wtforms.validators import InputRequired
 import csv
 import json
 import random
+import coffeescript
+import pyjade
 
 CSV_FILE = "registration-2014-2.csv"
 
 app = Flask("tuna-registration")
+babel = Babel(app)
 lock = Lock()
 
-candidates = []
+# The original coffeescript filter registered by pyjade is wrong for
+# its results are wrapped with `script` tag
+@pyjade.register_filter('coffeescript')
+def coffeescript_filter(text, ast):
+    return coffeescript.compile(text)
 
-@app.route('/', methods=["GET"])
-def index():
-    return render_template("index.jinja2")
+class JoinForm(Form):
+    name = StringField(_('Name'), [InputRequired()])
+    department = StringField(_('Department'))
+    klass = StringField(_('class'))
+    stu_number = StringField(_('Student Number'))
+    phone = StringField(_('Phone'))
+    email = EmailField(_('Email'))
+    gender = RadioField(
+            _('Gender'),
+            choices = [
+                ('boy', _('Boy')),
+                ('girl', _('Girl'))])
 
-
-@app.route('/checkin', methods=['POST'])
-def checkin():
-    global candidates
-    form = request.json
-    if form['name'] == '':
-        form['name'] = u"匿名者"
-    with lock:
-        writer = get_csv_writer()
-        writer.writerow(
-            map(lambda x: x.encode('utf-8'),
-                [form['name'], form['email'], ':'.join(form['from'])])
-        )
-        candidates.append((form['name'], form['email']))
-    return "OK"
-
+@app.route('/', methods=['GET', 'POST'])
+def base():
+    form = JoinForm(csrf_enabled=False)
+    success = False
+    if form.validate_on_submit():
+        # save data
+        success = True
+    return render_template(
+            'join.jade', form=form, success=success)
 
 @app.route('/join', methods=['GET', 'POST'])
 def join():
@@ -51,20 +65,6 @@ def join():
         )
     return 'OK'
 
-
-@app.route('/luckydog')
-def luckydog():
-    return render_template("lucky.jinja2")
-
-
-@app.route('/choice')
-def choose_luckydog():
-    random.shuffle(candidates)
-    lucky_dog = candidates.pop()
-    print lucky_dog
-    return json.dumps({"name": lucky_dog[0], "email": lucky_dog[1]})
-
-
 def get_csv_writer():
     if not hasattr(g, 'csv_file'):
         f = open(CSV_FILE, 'a+b')
@@ -78,8 +78,10 @@ if __name__ == "__main__":
         r = csv.reader(f)
         for row in r:
             row = map(lambda x: x.decode('utf-8'), row)
-            candidates.append((row[0], row[1]))
 
+    app.jinja_env.line_statement_prefix = '%'
+    app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
+    # app.config['BABEL_DEFAULT_LOCALE']='zh_CN'
     app.run(host='0.0.0.0', debug=True)
 
 # vim: ts=4 sw=4 sts=4 expandtab
