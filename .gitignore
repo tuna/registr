@@ -1,2 +1,6 @@
 /bower_components/
 *.csv
+venv
+.*.swp
+*.pyc
+*.mo

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+root=$(dirname "$0")
+localedir=$root/translations
+pot=$localedir/messages.pot
+babelcfg=$root/babel.cfg
+command=$1
+shift
+
+case "$command" in
+extract)
+    pybabel extract -F $babelcfg -k lazy_gettext -o $pot $root
+    ;;
+init)
+    pybabel init -i $pot -d $localedir -l "$@"
+    ;;
+compile)
+    pybabel compile -d $localedir
+    ;;
+update)
+    pybabel update -i $pot -d $localedir
+    ;;
+*)
+    echo "Unknown command '$command'."
+esac

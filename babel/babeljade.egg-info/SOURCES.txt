@@ -1,0 +1,5 @@
+babeljade.egg-info/PKG-INFO
+babeljade.egg-info/SOURCES.txt
+babeljade.egg-info/dependency_links.txt
+babeljade.egg-info/entry_points.txt
+babeljade.egg-info/top_level.txt
