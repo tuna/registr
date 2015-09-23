@@ -6,7 +6,7 @@ from threading import Lock
 from flask_wtf import Form
 from wtforms import StringField, RadioField
 from wtforms.fields.html5 import EmailField
-from wtforms.validators import InputRequired, Regexp, Email
+from wtforms.validators import InputRequired, Regexp, Email, Optional
 import csv
 import json
 import random
@@ -28,15 +28,14 @@ def coffeescript_filter(text, ast):
 class JoinForm(Form):
     name = StringField(_('Name'), [InputRequired()])
     department = StringField(_('Department'), [InputRequired()])
-    klass = StringField(_('Class'), [InputRequired()])
-    stu_number = StringField(_('Student Number'), [InputRequired()])
+    stu_number = StringField(_('Student Number'), [Optional()])
     phone = StringField(_('Phone'), [InputRequired(), Regexp('\d{11}', message=_('This is not valid phone number'))])
     email = EmailField(_('Email'), [Email()])
     gender = RadioField(
             _('Gender'),
             choices = [
-                ('boy', _('Boy')),
-                ('girl', _('Girl'))])
+                ('男', _('Boy')),
+                ('女', _('Girl'))])
 
 @app.route('/', methods=['GET', 'POST'])
 def base():
