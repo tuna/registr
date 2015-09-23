@@ -15,5 +15,8 @@ mixin render_field(field)
       each value, label, index in field.choices
         .radio.radio-primary
           label
-            input(id=field.name, name=field.name, value=value, type="radio", checked=("" if index == 0 else undefined))
+            if field.data and field.data == value or index == 0
+              input(id=field.name, name=field.name, value=value, type="radio", checked=True)
+            else
+              input(id=field.name, name=field.name, value=value, type="radio", checked=False)
             = label
