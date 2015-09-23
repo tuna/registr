@@ -25,11 +25,11 @@ html(lang="en")
               if success
                 .alert.alert-success#msg-success
                   = _("Register successfully")
-              ul.nav.nav-pills.pull-right
+              ul.pager.pull-right
                 each translation in all_locales
                   li
                     a(href=url_for('join', locale=unicode(translation)))
-                      = translation.get_display_name()
+                      = translation.get_language_name()
               h2
                 = _("Join Us")
               form#join(autocomplete="off", method="POST", novalidate)
