@@ -26,16 +26,16 @@ def coffeescript_filter(text, ast):
     return coffeescript.compile(text)
 
 class JoinForm(Form):
-    name = StringField(_('Name'), [InputRequired()])
-    department = StringField(_('Department'), [InputRequired()])
-    stu_number = StringField(_('Student Number'), [Optional()])
-    phone = StringField(_('Phone'), [InputRequired(), Regexp('\d{11}', message=_('This is not valid phone number'))])
-    email = EmailField(_('Email'), [Email()])
+    name = StringField(_(u'Name'), [InputRequired()])
+    department = StringField(_(u'Department'), [InputRequired()])
+    stu_number = StringField(_(u'Student Number'), [Optional()])
+    phone = StringField(_(u'Phone'), [InputRequired(), Regexp('\d{11}', message=_(u'This is not valid phone number'))])
+    email = EmailField(_(u'Email'), [Email()])
     gender = RadioField(
-            _('Gender'),
+            _(u'Gender'),
             choices = [
-                ('男', _('Boy')),
-                ('女', _('Girl'))])
+                (u'男', _(u'Boy')),
+                (u'女', _(u'Girl'))])
 
 @app.route('/', methods=['GET', 'POST'])
 def base():
