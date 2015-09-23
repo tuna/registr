@@ -43,7 +43,8 @@ def get_locale():
         return locale
 
     # print type(request.accept_languages.best_match(str(
-    locale = request.accept_languages.best_match(all_locales)
+    locale = request.accept_languages.best_match(
+            list(str(locale) for locale in all_locales))
     if locale is not None:
         return locale
 
