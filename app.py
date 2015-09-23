@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, request, g, render_template, redirect, session
 from flask.ext.babel import lazy_gettext as _, Babel
+from babel import Locale
 from threading import Lock
 from flask_wtf import Form
 from wtforms import StringField, RadioField
@@ -19,10 +20,13 @@ lock = Lock()
 
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 app.jinja_env.globals['_'] = _
+app.jinja_env.globals['unicode'] = unicode
 app.config['BABEL_DEFAULT_LOCALE']='en_US'
+babel.init_app(app)
+
 app.secret_key = '29898604a6b00b7f8c1cf65183289321a6c8b7f1'
 
-babel.init_app(app)
+all_locales = babel.list_translations() + [Locale('en', 'US')]
 
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -40,7 +44,7 @@ def get_locale():
         return locale
 
     locale = request.accept_languages.best_match(
-        list(str(translation) for translation in babel.list_translations()))
+        list(str(locale) for locale in all_locales))
     if locale is not None:
         return locale
 
@@ -82,7 +86,12 @@ def join():
             return redirect("/")
 
     success = session.get("success", False)
-    return render_template('join.jade', form=form, success=success)
+    session["success"] = False
+    return render_template(
+        'join.jade',
+        form=form,
+        success=success,
+        all_locales=all_locales)
 
 
 def get_csv_writer():

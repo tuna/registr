@@ -25,13 +25,18 @@ html(lang="en")
               if success
                 .alert.alert-success#msg-success
                   = _("Register successfully")
+              ul.nav.nav-pills.pull-right
+                each translation in all_locales
+                  li
+                    a(href=url_for('join', locale=unicode(translation)))
+                      = translation.get_display_name()
               h2
                 = _("Join Us")
-              form(autocomplete="off", method="POST", novalidate)
+              form#join(autocomplete="off", method="POST", novalidate)
                 each field in form
                   +render_field(field)
 
-                button.btn.btn-primary.pull-right(type="submit")
+                button#submit.btn.btn-primary.pull-right(type="submit")
                   = _("Let's go")
       .footer
         .row
@@ -62,6 +67,9 @@ html(lang="en")
           $('#department').typeahead
             source: departments
             minLength: 0
+
+          $('form#join').submit ->
+            $('button#submit').disable()
 
           $.material.init()
 
