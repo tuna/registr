@@ -7,7 +7,7 @@ from threading import Lock
 from flask_wtf import Form
 from wtforms import StringField, RadioField
 from wtforms.fields.html5 import EmailField
-from wtforms.validators import InputRequired, Regexp, Email, Optional
+from wtforms.validators import InputRequired, Email, Optional
 import csv
 import coffeescript
 import pyjade
@@ -41,6 +41,11 @@ def get_locale():
     # Try to retrieve locale from query strings.
     locale = request.args.get('locale', None)
     if locale is not None:
+        session["locale"] = locale
+        return locale
+
+    locale = session.get('locale', None)
+    if locale is not None:
         return locale
 
     locale = request.accept_languages.best_match(
@@ -56,9 +61,7 @@ class JoinForm(Form):
     name = StringField(_(u'Name'), [InputRequired()])
     department = StringField(_(u'Department'), [InputRequired()])
     stu_number = StringField(_(u'Student Number (Optional)'), [Optional()])
-    phone = StringField(_(u'Phone'), [
-        InputRequired(),
-        Regexp('\d{11}', message=_(u'This is not valid phone number'))])
+    phone = StringField(_(u'Phone'), [InputRequired()])
     email = EmailField(_(u'Email'), [Email()])
     gender = RadioField(
         _(u'Gender'),
