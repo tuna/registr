@@ -14,15 +14,3 @@ mixin render_field(field)
           label
             input(id=field.name, name=field.name, value=value, type="radio", checked=("" if index == 0 else undefined))
             = label
-
-mixin input_frame(field)
-  .form-group
-    input.form-control.floating-label(id=field.id, name=field.id, placeholder=field.label, type=field.type)
-
-mixin select_frame(id, selections)
-  .form-group
-    each value, label, index in selections
-      .radio.radio-primary
-        label
-          input(name=id, value=value, type="radio", checked=("" if index == 0 else undefined))
-          = label
