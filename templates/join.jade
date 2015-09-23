@@ -1,0 +1,66 @@
+- from 'utils.jade' import link_css, link_js, render_field
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title
+      block title
+        | 加入TUNA
+    +link_css("bootstrap.min.css")
+    +link_css("material-fullpalette.min.css")
+    +link_css("ripples.min.css")
+    +link_css("roboto.min.css")
+    style
+      | .form-control-wrapper {
+      |   margin: 30px 0px;
+      | }
+  body
+    .container
+      .content
+        .row
+          .col-lg-6.col-lg-offset-3
+            .jumbotron.clearfix
+              if success
+                .alert.alert-success#msg-success
+                  | 注册成功
+              h2
+                | Join Us
+              form(autocomplete="off", method="POST")
+                each field in form
+                  +render_field(field)
+
+                button.btn.btn-primary.pull-right(type="submit")
+                  | 走你
+      .footer
+        .row
+          .col-lg-6.col-lg-offset-3
+            | &copy; 清华大学<s>技术宅</s>网络协会 Tsinghua University TUNA Association
+
+    +link_js("jquery.min.js")
+    +link_js("material.min.js")
+    +link_js("ripples.min.js")
+    +link_js("bootstrap.min.js")
+    +link_js("bootstrap3-typeahead.min.js")
+
+    script
+      :coffeescript
+        $ ->
+          departments = [
+            "计算机系", "电子系", "自动化系", "工物系"
+            "软件学院", "微纳电子系", "电机系", "航院"
+            "化工系", "材料系", "工业工程系", "建筑系"
+            "土木系", "水利系", "环境学院", "机械系"
+            "精仪系", "热能系", "汽车系", "数学系"
+            "物理系", "化学系", "生命学院", "经管学院"
+            "人文学院", "法学院", "美院", "医学院"
+            "新闻系", "马院", "教研院", "交叉信息学院"
+            "地学中心", "金融学院", "高等研究院", "社科"
+            "五道口金融学院", "核研院"]
+
+          $('#department').typeahead
+            source: departments
+            minLength: 0
+
+          $.material.init()

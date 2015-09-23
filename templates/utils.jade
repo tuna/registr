@@ -1,0 +1,28 @@
+mixin link_css(css_file)
+  link(href=url_for("static", filename="css/"+css_file), rel="stylesheet")
+
+mixin link_js(js_file)
+  script(src=url_for("static", filename="js/"+js_file))
+
+mixin render_field(field)
+  .form-group(class=("has-error" if field.errors else undefined))
+    if field.type == 'StringField' or field.type == 'EmailField'
+      = field(placeholder=field.label.text, class="form-control floating-label", id=field.name, data_hint=(field.errors[0] if field.errors else undefined), autofocus=(true if field.errors else undefined))
+    elif field.type == 'RadioField'
+      each value, label, index in field.choices
+        .radio.radio-primary
+          label
+            input(id=field.name, name=field.name, value=value, type="radio", checked=("" if index == 0 else undefined))
+            = label
+
+mixin input_frame(field)
+  .form-group
+    input.form-control.floating-label(id=field.id, name=field.id, placeholder=field.label, type=field.type)
+
+mixin select_frame(id, selections)
+  .form-group
+    each value, label, index in selections
+      .radio.radio-primary
+        label
+          input(name=id, value=value, type="radio", checked=("" if index == 0 else undefined))
+          = label
