@@ -59,7 +59,7 @@ msgstr "加入TUNA"
 
 #: templates/join.jade:27
 msgid "Register successfully"
-msgstr "注册成功"
+msgstr "注册成功！请再到<strong><a href="http://shetuan.student.tsinghua.edu.cn/f/ckstzy/20140027">社团部官网</a></strong>申请批准加入。"
 
 #: templates/join.jade:29
 msgid "Join Us"

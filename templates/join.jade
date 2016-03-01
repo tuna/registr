@@ -24,7 +24,7 @@ html(lang="en")
             .jumbotron.clearfix
               if success
                 .alert.alert-success#msg-success
-                  = _("Register successfully")
+                  = _("Register successfully") | safe
               ul.pager.pull-right
                 each translation in all_locales
                   li

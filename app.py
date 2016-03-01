@@ -12,7 +12,7 @@ import csv
 import coffeescript
 import pyjade
 
-CSV_FILE = "registration-2015-1.csv"
+CSV_FILE = "registration-2016-spring.csv"
 
 app = Flask("tuna-registration")
 babel = Babel()
