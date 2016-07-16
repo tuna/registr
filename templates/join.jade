@@ -22,7 +22,7 @@ html(lang="en")
         .row
           .col-lg-6.col-lg-offset-3
             .jumbotron.clearfix
-              if success
+              if success  
                 .alert.alert-success#msg-success
                   = _("Register successfully") | safe
               ul.pager.pull-right
@@ -33,9 +33,15 @@ html(lang="en")
               h2
                 = _("Join Us")
               form#join(autocomplete="off", method="POST", novalidate)
+                div#div_canvas
+                  video(id="video", width="320", height="240")
+                  canvas(id="canvas", width="320", height="240")
+                button#take_photo.btn.btn-primary(type="button")
+                  = _("Take Photo")
+                button#retake.btn.btn-primary(type="button")
+                  = _("Retake")
                 each field in form
                   +render_field(field)
-
                 button#submit.btn.btn-primary.pull-right(type="submit")
                   = _("Let's go")
       .footer
@@ -48,6 +54,7 @@ html(lang="en")
     +link_js("ripples.min.js")
     +link_js("bootstrap.min.js")
     +link_js("bootstrap3-typeahead.min.js")
+    +link_js("load-image.all.min.js")
 
     script
       :coffeescript
@@ -55,14 +62,14 @@ html(lang="en")
           departments = [
             "计算机系", "电子系", "自动化系", "工物系"
             "软件学院", "微纳电子系", "电机系", "航院"
-            "化工系", "材料系", "工业工程系", "建筑系"
+            "化工系", "材料学院", "工业工程系", "建筑学院"
             "土木系", "水利系", "环境学院", "机械系"
             "精仪系", "热能系", "汽车系", "数学系"
             "物理系", "化学系", "生命学院", "经管学院"
             "人文学院", "法学院", "美院", "医学院"
-            "新闻系", "马院", "教研院", "交叉信息学院"
-            "地学中心", "金融学院", "高等研究院", "社科"
-            "五道口金融学院", "核研院"]
+            "新闻学院", "马院", "教研院", "交叉信息学院"
+            "地学中心", "金融学院", "高等研究院", "社科学院"
+            "五道口金融学院", "核研院", "药学院", "公管学院"]
 
           $('#department').typeahead
             source: departments
@@ -75,3 +82,74 @@ html(lang="en")
 
           # For browser which do not support it.
           #$('input[autofocus]').focus()
+          
+          $('#image').hide()
+          
+          $('#canvas').hide()
+          $('#retake').hide()
+          
+          canvas = document.getElementById "canvas"
+          context = canvas.getContext "2d"
+          video = document.getElementById "video"
+          
+          getUserMedia = navigator.getUserMedia or
+            navigator.webkitGetUserMedia or
+            navigator.mozGetUserMedia
+          
+          startCapture = ->
+            constrains =
+              audio: false
+              video:
+                facingMode: "user"
+                width:320
+                height:240
+                
+            errorCallback = (err)->
+              console.log "The following error occured:" + err.name
+            
+            successCallback = (stream)->
+              video.src = window.URL.createObjectURL stream
+              video.play()
+
+            getUserMedia.apply navigator, [constrains, successCallback, errorCallback]
+          
+          takePhoto = ->
+            $('#canvas').show()
+            $('#video').hide()
+            context.drawImage video, 0, 0, canvas.width, canvas.height
+            $('#take_photo').hide()
+            $('#retake').show()
+            $('#pic_took').val canvas.toDataURL('image/png')
+            
+          retakePhoto = ->
+            $('#canvas').hide()
+            $('#video').show()
+            $('#take_photo').show()
+            $('#retake').hide()
+            $('#pic_took').val ''
+            startCapture()
+          
+          if getUserMedia isnt undefined
+            $('#retake').click retakePhoto
+            $('#take_photo').click takePhoto
+            startCapture()
+          else
+            # Fallback
+            console.log 'fallback'
+            $('#video').hide()
+            $('#canvas').hide()
+            $('#take_photo').click ->
+              $('#image').trigger "click"
+            $('#image').change ->
+              $('#msg-no-pic').remove()
+              loadImage $('#image').prop('files')[0],
+                (neoCanvas) ->
+                  neoCanvas.id = "canvas"
+                  canvas = neoCanvas
+                  $('#canvas').replaceWith neoCanvas
+                  $('#pic_took').val canvas.toDataURL('image/png')
+                  $('#image').val null
+                ,
+                maxWidth: canvas.width
+                maxHeight: canvas.height
+                orientation: true

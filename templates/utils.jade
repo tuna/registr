@@ -20,3 +20,10 @@ mixin render_field(field)
             else
               input(id=field.name, name=field.name, value=value, type="radio", checked=False)
             = label
+    elif field.type == 'FileField'
+      input(id=field.name, name=field.name, type="file", accept="image/*;capture=camera", single)
+    elif field.type == 'HiddenField'
+      input(id=field.name, name=field.name, type="hidden")
+      if field.errors
+        .alert.alert-danger#msg-no-pic
+          = _("Picture needed") | safe
