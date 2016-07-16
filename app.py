@@ -79,7 +79,6 @@ def join():
     form = JoinForm(csrf_enabled=False)
     if request.method == "POST":
         session["success"] = False
-        print "submit"
         if form.validate():
             # save data
             with lock:
