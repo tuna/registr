@@ -1,18 +1,19 @@
 #!/usr/bin/env python2
 # -*- coding:utf-8 -*-
 from flask import Flask, request, g, render_template, redirect, session
-from flask.ext.babel import lazy_gettext as _, Babel
+from flask_babel import lazy_gettext as _, Babel
 from babel import Locale
 from threading import Lock
 from flask_wtf import Form
-from wtforms import StringField, RadioField
+from wtforms import StringField, RadioField, FileField, HiddenField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, Email, Optional
 import csv
 import coffeescript
 import pyjade
+import base64
 
-CSV_FILE = "registration-2016-spring.csv"
+CSV_FILE = "registration-2016-fall.csv"
 
 app = Flask("tuna-registration")
 babel = Babel()
@@ -58,6 +59,8 @@ def get_locale():
 
 
 class JoinForm(Form):
+    image = FileField(_(u'image'), [Optional()])
+    pic_took = HiddenField(_(u'pic_took'), [InputRequired()])
     name = StringField(_(u'Name'), [InputRequired()])
     department = StringField(_(u'Department'), [InputRequired()])
     stu_number = StringField(_(u'Student Number (Optional)'), [Optional()])
@@ -85,6 +88,16 @@ def join():
                         [form.name.data, form.gender.data, form.stu_number.data,
                         form.department.data, form.email.data, form.phone.data])
                 )
+            head = "data:image/png;base64,"
+            if cmp(form.pic_took.data[:22], head) == 0 :
+                img_encoded = form.pic_took.data[22:]
+                img = base64.b64decode(img_encoded)
+                file_name = "pics/{}_{}.png".format(form.name.data, form.stu_number.data)
+                fp = open(file_name, 'w')
+                fp.write(img)
+                fp.flush()
+                fp.close()
+
             session["success"] = True
             return redirect("/")
 
@@ -111,6 +124,7 @@ if __name__ == "__main__":
         for row in r:
             row = map(lambda x: x.decode('utf-8'), row)
 
-    app.run(host='0.0.0.0', debug=True)
+    sslContext = ('server.crt', 'server.key')
+    app.run(host='0.0.0.0', debug=True, ssl_context=sslContext)
 
 # vim: ts=4 sw=4 sts=4 expandtab
