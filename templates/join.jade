@@ -47,7 +47,7 @@ html(lang="en")
       .footer
         .row
           .col-lg-6.col-lg-offset-3
-            | &copy; 清华大学<s>技术宅</s>网络协会 Tsinghua University TUNA Association
+            | &copy; 清华大学<s>技术宅</s>网络与开源软件协会 Tsinghua University TUNA Association
 
     +link_js("jquery.min.js")
     +link_js("material.min.js")
@@ -55,6 +55,7 @@ html(lang="en")
     +link_js("bootstrap.min.js")
     +link_js("bootstrap3-typeahead.min.js")
     +link_js("load-image.all.min.js")
+    +link_js("adapter.js")
 
     script
       :coffeescript
@@ -101,17 +102,23 @@ html(lang="en")
               audio: false
               video:
                 facingMode: "user"
-                width:320
-                height:240
+                height: 240
+                width: 320
                 
             errorCallback = (err)->
               console.log "The following error occured:" + err.name
+              alert "The following error occured:" + err
             
             successCallback = (stream)->
               video.src = window.URL.createObjectURL stream
-              video.play()
-
-            getUserMedia.apply navigator, [constrains, successCallback, errorCallback]
+              video.onloadedmetadata = (e) ->
+                video.play()
+                canvas.width = video.videoWidth
+                canvas.height = video.videoHeight
+            try
+              getUserMedia.apply navigator, [constrains, successCallback, errorCallback]
+            catch e
+              console.log e
           
           takePhoto = ->
             $('#canvas').show()
