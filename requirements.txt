@@ -4,3 +4,4 @@ CoffeeScript
 Flask-WTF
 Flask-Babel
 pyOpenSSL
+-e babel
