@@ -115,10 +115,10 @@ def join():
             template.format(year=today.year, month=today.month, day=today.day))
             to_email = EmailAddr(form.email.data)
             mail = Mail(from_email, subject, to_email, content)
-            response = sg.client.mail.send.post(request_body=mail.get())
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
+            try:
+                response = sg.client.mail.send.post(request_body=mail.get())
+            except Exception:
+                print 'err'
 
             session["success"] = True
             return redirect("/")

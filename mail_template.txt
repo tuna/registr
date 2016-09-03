@@ -1,7 +1,20 @@
-Hi tunar:
+Hi,亲爱的 Tunar:
 
-我刚刚手残把挺用心写好的欢迎模板删了…………需要安慰。
+很高兴在这个美好的秋天里，能有你加入TUNA协会。十几年来，尽管曾历经波折，TUNA 协会一直致力于为开源事业做贡献。希望你的加入，能够为协会带来更多生机和活力。
 
-Peiran Yao
-Tsingha University TUNA Association
+如果你是清华大学的师生，请先在清华大学学生社团协会信息化平台（http://shetuan.student.tsinghua.edu.cn）用校园账号登入后，找到“清华大学学生网络与开源软件协会”，选择申请加入。感谢你的支持和配合！
+
+我们的网站是：https://tuna.moe 你可以通过发送任意内容邮件到 tuna-general+subscribe@googlegroups.com, 并回复确认邮件，订阅协会邮件列表。活动通知会及时发布在邮件列表中。你也可以在 https://fishroom.tuna.moe/log/tuna/today 与我们取得联系。
+
+另外，我们拟定于本周六（9月24日）举办2016年软件自由日暨新成员见面会，欢迎参加！具体时间地点为：
+
+2016年9月24日 星期六
+xx:xx – xx:xx
+x教 xxxx
+
+你可以通过点击附件中的文件将日程添加到日历中。
+
+新学期，新气象。希望因为你的加入，新的一年变得更好。
+
+清华大学 TUNA 协会
 {year}年{month}月{day}日
