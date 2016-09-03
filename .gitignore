@@ -5,3 +5,4 @@ venv
 *.pyc
 *.mo
 sendgrid.env
+pics
