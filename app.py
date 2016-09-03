@@ -12,6 +12,12 @@ import csv
 import coffeescript
 import pyjade
 import base64
+import sendgrid
+import os
+from sendgrid.helpers.mail import Content, Mail
+from sendgrid.helpers.mail import Email as EmailAddr
+import codecs
+import datetime
 
 CSV_FILE = "registration-2016-fall.csv"
 
@@ -28,6 +34,12 @@ babel.init_app(app)
 app.secret_key = '29898604a6b00b7f8c1cf65183289321a6c8b7f1'
 
 all_locales = babel.list_translations() + [Locale('en', 'US')]
+
+# setup sendgrid
+sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+from_email = EmailAddr("peiran.yao@tuna.tsinghua.edu.cn")
+subject = "Hello World from the SendGrid Python Library!"
+template = codecs.open("mail_template.txt", 'r', 'UTF-8').read()
 
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -97,6 +109,16 @@ def join():
                 fp.write(img)
                 fp.flush()
                 fp.close()
+
+            today = datetime.date.today()
+            content = Content("text/plain",
+            template.format(year=today.year, month=today.month, day=today.day))
+            to_email = EmailAddr(form.email.data)
+            mail = Mail(from_email, subject, to_email, content)
+            try:
+                response = sg.client.mail.send.post(request_body=mail.get())
+            except Exception:
+                print 'err'
 
             session["success"] = True
             return redirect("/")

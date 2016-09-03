@@ -4,3 +4,5 @@ venv
 .*.swp
 *.pyc
 *.mo
+sendgrid.env
+pics
