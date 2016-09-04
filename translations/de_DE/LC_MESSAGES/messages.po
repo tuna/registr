@@ -1,4 +1,4 @@
-# Japanese (Japan) translations for PROJECT.
+# German (Germany) translations for PROJECT.
 # Copyright (C) 2016 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
@@ -8,11 +8,11 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-09-04 19:56+0800\n"
-"PO-Revision-Date: 2016-09-04 20:16+0800\n"
+"PO-Revision-Date: 2016-09-04 20:21+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: ja_JP\n"
-"Language-Team: ja_JP <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: de_DE\n"
+"Language-Team: de_DE <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,67 +20,67 @@ msgstr ""
 
 #: app.py:110
 msgid "image"
-msgstr "画像"
+msgstr ""
 
 #: app.py:111
 msgid "pic_took"
-msgstr "撮影"
+msgstr ""
 
 #: app.py:112
 msgid "Name"
-msgstr "名前"
+msgstr ""
 
 #: app.py:113
 msgid "Department"
-msgstr "学科"
+msgstr ""
 
 #: app.py:114
 msgid "Student Number (Optional)"
-msgstr "生徒番号"
+msgstr ""
 
 #: app.py:115
 msgid "Phone"
-msgstr "電話番号"
+msgstr ""
 
 #: app.py:116
 msgid "Email"
-msgstr "メール"
+msgstr ""
 
 #: app.py:118
 msgid "Gender"
-msgstr "性別"
+msgstr ""
 
 #: app.py:120
 msgid "Boy"
-msgstr "男"
+msgstr ""
 
 #: app.py:121
 msgid "Girl"
-msgstr "女"
+msgstr ""
 
 #: templates/join.jade:6
 msgid "Join TUNA"
-msgstr "参加ツーナ"
+msgstr ""
 
 #: templates/join.jade:19
 msgid "Register successfully"
-msgstr "記録が完了"
+msgstr ""
 
 #: templates/join.jade:25
 msgid "Join Us"
-msgstr "参加"
+msgstr ""
 
 #: templates/join.jade:32
 msgid "Take Photo"
-msgstr "撮影"
+msgstr ""
 
 #: templates/join.jade:34
 msgid "Retake"
-msgstr "再度撮影"
+msgstr ""
 
 #: templates/join.jade:36
 msgid "Let's go"
-msgstr "Let's go"
+msgstr ""
 
 #: templates/utils.jade:13
 msgid "Picture needed"
