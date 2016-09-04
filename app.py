@@ -43,9 +43,11 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 app.jinja_env.globals['_'] = _
 babel.init_app(app)
 
-db = SQLAlchemy(app)
-
 all_locales = babel.list_translations() + [Locale('en', 'US')]
+
+
+# Models
+db = SQLAlchemy(app)
 
 
 class Candidate(db.Model):
@@ -59,7 +61,7 @@ class Candidate(db.Model):
     email = db.Column(db.String(120), unique=True)
     gender = db.Column(db.Enum('男', '女'))
 
-
+# Create all tables if not existed
 db.create_all()
 
 
