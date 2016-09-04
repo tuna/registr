@@ -86,11 +86,10 @@ def join():
             # save data
             with lock:
                 writer = get_csv_writer()
-                writer.writerows(
-                    map(lambda x: x.encode('utf-8'),
-                        [form.name.data, form.gender.data,
-                         form.stu_number.data, form.department.data,
-                         form.email.data, form.phone.data])
+                writer.writerow(
+                    [form.name.data, form.gender.data,
+                     form.stu_number.data, form.department.data,
+                     form.email.data, form.phone.data]
                 )
             head = "data:image/png;base64,"
             if cmp(form.pic_took.data[:22], head) == 0:
@@ -117,7 +116,7 @@ def join():
 
 def get_csv_writer():
     if not hasattr(g, 'csv_file'):
-        f = open(CSV_FILE, 'a+b')
+        f = open(CSV_FILE, 'a+')
         g.csv_file = f
 
     return csv.writer(g.csv_file)
