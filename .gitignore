@@ -4,3 +4,4 @@ venv
 .*.swp
 *.pyc
 *.mo
+*.db
