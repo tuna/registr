@@ -18,18 +18,23 @@ import pyjade
 import base64
 
 
-DB_FILE = "registration-2016-fall.db"
-
 app = Flask("tuna-registration")
+
+
+app.config.update(
+    BABEL_DEFAULT_LOCALE='en_US',
+    SQLALCHEMY_DATABASE_URI='sqlite:///registration-2016-fall.db',
+    BASIC_AUTH_USERNAME='tunar',
+    BASIC_AUTH_PASSWORD='nobodyknowsthis',
+)
+
 babel = Babel()
 lock = Lock()
 
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 app.jinja_env.globals['_'] = _
-app.config['BABEL_DEFAULT_LOCALE'] = 'en_US'
 babel.init_app(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(DB_FILE)
 db = SQLAlchemy(app)
 
 app.secret_key = '29898604a6b00b7f8c1cf65183289321a6c8b7f1'
@@ -137,8 +142,6 @@ def join():
         all_locales=all_locales)
 
 
-app.config['BASIC_AUTH_USERNAME'] = 'tunar'
-app.config['BASIC_AUTH_PASSWORD'] = 'nobodyknowsthis'
 basic_auth = BasicAuth(app)
 
 
