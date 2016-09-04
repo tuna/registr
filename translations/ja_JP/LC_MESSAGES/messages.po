@@ -72,7 +72,7 @@ msgstr "再度撮影"
 
 #: templates/join.jade:36
 msgid "Let's go"
-msgstr "Let's go"
+msgstr "レツゴー"
 
 #: templates/utils.jade:13
 msgid "Picture needed"
