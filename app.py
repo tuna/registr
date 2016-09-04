@@ -17,6 +17,14 @@ import pyjade
 import base64
 
 
+# According to this:
+# https://docs.python.org/3.0/whatsnew/3.0.html#ordering-comparisons
+# cmp is no longer supported in Python3, this is a 'official' workaround.
+# TODO: remove it
+def cmp(a, b):
+    return (a > b) - (a < b)
+
+
 app = Flask("tuna-registration")
 
 
@@ -38,10 +46,6 @@ db = SQLAlchemy(app)
 app.secret_key = '29898604a6b00b7f8c1cf65183289321a6c8b7f1'
 
 all_locales = babel.list_translations() + [Locale('en', 'US')]
-
-
-def cmp(a, b):
-    (a > b) - (a < b)
 
 
 class Candidate(db.Model):
