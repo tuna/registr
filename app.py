@@ -84,8 +84,7 @@ def get_locale():
         return locale
 
     # Fall back to default locale
-    return None
-
+    return 'en_US'
 
 # Models
 db = SQLAlchemy(app)
@@ -164,6 +163,7 @@ def join():
 
     success = session.get("success", False)
     session["success"] = False
+
     return render_template(
         'join.jade',
         form=form,
