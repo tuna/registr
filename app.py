@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, request, g, render_template, redirect, session
 from flask_babel import lazy_gettext as _, Babel
+from flask_sqlalchemy import SQLAlchemy
 from babel import Locale
 from threading import Lock
 from flask_wtf import Form
@@ -13,7 +14,9 @@ import coffeescript
 import pyjade
 import base64
 
+
 CSV_FILE = "registration-2016-fall.csv"
+DB_FILE = "registration-2016-fall.db"
 
 app = Flask("tuna-registration")
 babel = Babel()
@@ -24,6 +27,9 @@ app.jinja_env.globals['_'] = _
 app.config['BABEL_DEFAULT_LOCALE'] = 'en_US'
 babel.init_app(app)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(DB_FILE)
+db = SQLAlchemy(app)
+
 app.secret_key = '29898604a6b00b7f8c1cf65183289321a6c8b7f1'
 
 all_locales = babel.list_translations() + [Locale('en', 'US')]
@@ -31,6 +37,21 @@ all_locales = babel.list_translations() + [Locale('en', 'US')]
 
 def cmp(a, b):
     (a > b) - (a < b)
+
+
+class Candidate(db.Model):
+    __tablename__ = 'Candidate'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), nullable=False)
+    department = db.Column(db.String(128), nullable=False)
+    stu_number = db.Column(db.String(16), unique=True)
+    phone = db.Column(db.String(16), nullable=False)
+    email = db.Column(db.String(120), unique=True)
+    gender = db.Column(db.Enum('男', '女'))
+
+
+db.create_all()
 
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -84,6 +105,12 @@ def join():
         session["success"] = False
         if form.validate():
             # save data
+            c = Candidate()
+            for field in ['name', 'gender', 'stu_number', 'department',
+                          'email', 'phone']:
+                setattr(c, field, getattr(form, field).data)
+            db.session.add(c)
+            db.session.commit()
             with lock:
                 writer = get_csv_writer()
                 writer.writerow(
