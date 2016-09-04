@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-09-04 20:33+0800\n"
 "PO-Revision-Date: 2016-09-04 20:21+0800\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Qi Xiao <xiaqqaix@gmail.com>\n"
 "Language: de_DE\n"
 "Language-Team: de_DE <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -20,70 +20,60 @@ msgstr ""
 
 #: app.py:112
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: app.py:113
 msgid "Department"
-msgstr ""
+msgstr "Fakultät"
 
 #: app.py:114
 msgid "Student Number (Optional)"
-msgstr ""
+msgstr "Studentnummer (optional)"
 
 #: app.py:115
 msgid "Phone"
-msgstr ""
+msgstr "Telefonnummer"
 
 #: app.py:116
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: app.py:118
 msgid "Gender"
-msgstr ""
+msgstr "Geschlecht"
 
 #: app.py:120
 msgid "Boy"
-msgstr ""
+msgstr "Junge"
 
 #: app.py:121
 msgid "Girl"
-msgstr ""
+msgstr "Mädchen"
 
 #: templates/join.jade:6
 msgid "Join TUNA"
-msgstr ""
+msgstr "TUNA beitreten"
 
 #: templates/join.jade:19
 msgid "Registered successfully"
-msgstr ""
+msgstr "Erfolgreich registriert"
 
 #: templates/join.jade:25
 msgid "Join Us"
-msgstr ""
+msgstr "Uns beitreten"
 
 #: templates/join.jade:32
 msgid "Take Photo"
-msgstr ""
+msgstr "Foto machen"
 
 #: templates/join.jade:34
 msgid "Retake"
-msgstr ""
+msgstr "machen wieder"
 
 #: templates/join.jade:36
 msgid "Let's go"
-msgstr ""
+msgstr "Los!"
 
 #: templates/utils.jade:13
 msgid "Picture needed"
-msgstr ""
-
-#~ msgid "image"
-#~ msgstr ""
-
-#~ msgid "pic_took"
-#~ msgstr ""
-
-#~ msgid "Register successfully"
-#~ msgstr ""
-
+msgstr "Foto benötigt"
