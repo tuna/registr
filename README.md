@@ -26,6 +26,12 @@ Run it!
 $ python app.py
 ```
 
+Or run it with `gunicorn`:
+```
+$ pip install gunicorn gevent
+$ gunicorn --worker-class=gevent --workers=10 --log-level debug --access-logfile - --reload app:app
+```
+
 i18n
 ----
 

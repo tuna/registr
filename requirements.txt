@@ -3,5 +3,7 @@ flask
 CoffeeScript
 Flask-WTF
 Flask-Babel
-pyOpenSSL
+Flask-SQLAlchemy
+Flask-Admin
+Flask-BasicAuth
 -e babel

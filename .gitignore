@@ -6,3 +6,4 @@ venv
 *.mo
 sendgrid.env
 pics
+*.db
