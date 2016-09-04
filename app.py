@@ -107,8 +107,8 @@ db.create_all()
 
 
 class JoinForm(Form):
-    image = FileField(_('image'), [Optional()])
-    pic_took = HiddenField(_('pic_took'), [InputRequired()])
+    image = FileField('image', [Optional()])
+    pic_took = HiddenField('pic_took', [InputRequired()])
     name = StringField(_('Name'), [InputRequired()])
     department = StringField(_('Department'), [InputRequired()])
     stu_number = StringField(_('Student Number (Optional)'), [Optional()])
