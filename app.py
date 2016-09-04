@@ -8,7 +8,6 @@ from flask_babel import lazy_gettext as _, Babel
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.basicauth import BasicAuth
 from babel import Locale
-from threading import Lock
 from flask_wtf import Form
 from wtforms import StringField, RadioField, FileField, HiddenField
 from wtforms.fields.html5 import EmailField
@@ -29,7 +28,6 @@ app.config.update(
 )
 
 babel = Babel()
-lock = Lock()
 
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 app.jinja_env.globals['_'] = _
