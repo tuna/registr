@@ -6,7 +6,7 @@ from flask_admin.contrib.sqla import ModelView as _ModelView
 from flask_admin.base import AdminViewMeta
 from flask_babel import lazy_gettext as _, Babel
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.basicauth import BasicAuth
+from flask_basicauth import BasicAuth
 from babel import Locale
 from flask_wtf import Form
 from wtforms import StringField, RadioField, FileField, HiddenField
