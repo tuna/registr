@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-04 19:56+0800\n"
+"POT-Creation-Date: 2016-09-04 20:31+0800\n"
 "PO-Revision-Date: 2015-09-23 16:48+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -17,14 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-
-#: app.py:110
-msgid "image"
-msgstr ""
-
-#: app.py:111
-msgid "pic_took"
-msgstr ""
 
 #: app.py:112
 msgid "Name"
@@ -90,4 +82,10 @@ msgstr ""
 
 #~ msgid "This is not valid phone number"
 #~ msgstr "这不是一个合法的号码"
+
+#~ msgid "image"
+#~ msgstr ""
+
+#~ msgid "pic_took"
+#~ msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-04 19:56+0800\n"
+"POT-Creation-Date: 2016-09-04 20:31+0800\n"
 "PO-Revision-Date: 2016-09-04 20:16+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja_JP\n"
@@ -17,14 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-
-#: app.py:110
-msgid "image"
-msgstr "画像"
-
-#: app.py:111
-msgid "pic_took"
-msgstr "撮影"
 
 #: app.py:112
 msgid "Name"
@@ -85,4 +77,10 @@ msgstr "Let's go"
 #: templates/utils.jade:13
 msgid "Picture needed"
 msgstr ""
+
+#~ msgid "image"
+#~ msgstr "画像"
+
+#~ msgid "pic_took"
+#~ msgstr "撮影"
 
