@@ -28,7 +28,7 @@ def cmp(a, b):
 app = Flask("tuna-registration")
 
 
-#TODO: retrieve configuration from environment?
+# TODO: retrieve configuration from environment?
 app.config.update(
     BABEL_DEFAULT_LOCALE='en_US',
     SQLALCHEMY_DATABASE_URI='sqlite:///registration-2016-fall.db',
