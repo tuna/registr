@@ -53,25 +53,6 @@ babel.init_app(app)
 all_locales = babel.list_translations() + [Locale('en', 'US')]
 
 
-# Models
-db = SQLAlchemy(app)
-
-
-class Candidate(db.Model):
-    __tablename__ = 'Candidate'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32), nullable=False)
-    department = db.Column(db.String(128), nullable=False)
-    stu_number = db.Column(db.String(16), unique=True)
-    phone = db.Column(db.String(16), nullable=False)
-    email = db.Column(db.String(120), unique=True)
-    gender = db.Column(db.Enum('男', '女'))
-
-# Create all tables if not existed
-db.create_all()
-
-
 @babel.localeselector
 def get_locale():
     # Try to retrieve locale from query strings.
@@ -91,6 +72,25 @@ def get_locale():
 
     # Fall back to default locale
     return None
+
+
+# Models
+db = SQLAlchemy(app)
+
+
+class Candidate(db.Model):
+    __tablename__ = 'Candidate'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), nullable=False)
+    department = db.Column(db.String(128), nullable=False)
+    stu_number = db.Column(db.String(16), unique=True)
+    phone = db.Column(db.String(16), nullable=False)
+    email = db.Column(db.String(120), unique=True)
+    gender = db.Column(db.Enum('男', '女'))
+
+# Create all tables if not existed
+db.create_all()
 
 
 class JoinForm(Form):
