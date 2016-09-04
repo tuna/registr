@@ -6,4 +6,5 @@ Flask-Babel
 Flask-SQLAlchemy
 Flask-Admin
 Flask-BasicAuth
+sendgrid
 -e babel

@@ -142,20 +142,22 @@ def join():
                 img = base64.b64decode(img_encoded)
                 file_name = "pics/{}_{}.png".format(
                     form.name.data, form.stu_number.data)
-                fp = open(file_name, 'w')
+                fp = open(file_name, 'wb')
                 fp.write(img)
                 fp.flush()
                 fp.close()
 
             today = datetime.date.today()
-            content = Content("text/plain",
-            template.format(year=today.year, month=today.month, day=today.day))
+            content = Content(
+                "text/plain",
+                template.format(year=today.year, month=today.month,
+                                day=today.day))
             to_email = EmailAddr(form.email.data)
             mail = Mail(from_email, subject, to_email, content)
             try:
-                response = sg.client.mail.send.post(request_body=mail.get())
+                sg.client.mail.send.post(request_body=mail.get())
             except Exception:
-                print 'err'
+                print('err')
 
             session["success"] = True
             return redirect("/")
