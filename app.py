@@ -83,18 +83,18 @@ def get_locale():
 
 
 class JoinForm(Form):
-    image = FileField(_(u'image'), [Optional()])
-    pic_took = HiddenField(_(u'pic_took'), [InputRequired()])
-    name = StringField(_(u'Name'), [InputRequired()])
-    department = StringField(_(u'Department'), [InputRequired()])
-    stu_number = StringField(_(u'Student Number (Optional)'), [Optional()])
-    phone = StringField(_(u'Phone'), [InputRequired()])
-    email = EmailField(_(u'Email'), [Email()])
+    image = FileField(_('image'), [Optional()])
+    pic_took = HiddenField(_('pic_took'), [InputRequired()])
+    name = StringField(_('Name'), [InputRequired()])
+    department = StringField(_('Department'), [InputRequired()])
+    stu_number = StringField(_('Student Number (Optional)'), [Optional()])
+    phone = StringField(_('Phone'), [InputRequired()])
+    email = EmailField(_('Email'), [Email()])
     gender = RadioField(
-        _(u'Gender'),
+        _('Gender'),
         choices=[
-            (u'男', _(u'Boy')),
-            (u'女', _(u'Girl'))
+            ('男', _('Boy')),
+            ('女', _('Girl'))
         ])
 
 
