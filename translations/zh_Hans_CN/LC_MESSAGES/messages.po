@@ -56,7 +56,7 @@ msgstr "加入TUNA"
 
 #: templates/join.jade:19
 msgid "Registered successfully"
-msgstr ""
+msgstr "注册成功！请关注我们的通知邮件。"
 
 #: templates/join.jade:25
 msgid "Join Us"
