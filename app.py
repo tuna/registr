@@ -146,6 +146,7 @@ def join():
         all_locales=all_locales)
 
 
+# A basic admin interface to view candidates
 basic_auth = BasicAuth(app)
 
 
