@@ -1,6 +1,8 @@
 #!/usr/bin/env python2
 # -*- coding:utf-8 -*-
 from flask import Flask, request, g, render_template, redirect, session
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_babel import lazy_gettext as _, Babel
 from flask_sqlalchemy import SQLAlchemy
 from babel import Locale
@@ -148,6 +150,9 @@ def get_csv_writer():
 
     return csv.writer(g.csv_file)
 
+
+admin = Admin(app)
+admin.add_view(ModelView(Candidate, db.session))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)

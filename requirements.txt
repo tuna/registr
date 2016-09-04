@@ -4,4 +4,5 @@ CoffeeScript
 Flask-WTF
 Flask-Babel
 Flask-SQLAlchemy
+Flask-Admin
 -e babel
