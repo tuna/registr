@@ -21,13 +21,16 @@ lock = Lock()
 
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 app.jinja_env.globals['_'] = _
-app.jinja_env.globals['unicode'] = unicode
-app.config['BABEL_DEFAULT_LOCALE']='en_US'
+app.config['BABEL_DEFAULT_LOCALE'] = 'en_US'
 babel.init_app(app)
 
 app.secret_key = '29898604a6b00b7f8c1cf65183289321a6c8b7f1'
 
 all_locales = babel.list_translations() + [Locale('en', 'US')]
+
+
+def cmp(a, b):
+    (a > b) - (a < b)
 
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -83,16 +86,18 @@ def join():
             # save data
             with lock:
                 writer = get_csv_writer()
-                writer.writerow(
+                writer.writerows(
                     map(lambda x: x.encode('utf-8'),
-                        [form.name.data, form.gender.data, form.stu_number.data,
-                        form.department.data, form.email.data, form.phone.data])
+                        [form.name.data, form.gender.data,
+                         form.stu_number.data, form.department.data,
+                         form.email.data, form.phone.data])
                 )
             head = "data:image/png;base64,"
-            if cmp(form.pic_took.data[:22], head) == 0 :
+            if cmp(form.pic_took.data[:22], head) == 0:
                 img_encoded = form.pic_took.data[22:]
                 img = base64.b64decode(img_encoded)
-                file_name = "pics/{}_{}.png".format(form.name.data, form.stu_number.data)
+                file_name = "pics/{}_{}.png".format(
+                    form.name.data, form.stu_number.data)
                 fp = open(file_name, 'w')
                 fp.write(img)
                 fp.flush()

@@ -28,7 +28,7 @@ html(lang="en")
               ul.pager.pull-right
                 each translation in all_locales
                   li
-                    a(href=url_for('join', locale=unicode(translation)))
+                    a(href=url_for('join', locale=translation))
                       = translation.get_language_name()
               h2
                 = _("Join Us")
