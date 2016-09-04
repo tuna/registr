@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding:utf-8 -*-
-from flask import Flask, request, g, render_template, redirect, session
+from flask import Flask, request, render_template, redirect, session
 from flask_admin import Admin, expose
 from flask_admin.contrib.sqla import ModelView as _ModelView
 from flask_admin.base import AdminViewMeta
@@ -13,13 +13,11 @@ from flask_wtf import Form
 from wtforms import StringField, RadioField, FileField, HiddenField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, Email, Optional
-import csv
 import coffeescript
 import pyjade
 import base64
 
 
-CSV_FILE = "registration-2016-fall.csv"
 DB_FILE = "registration-2016-fall.db"
 
 app = Flask("tuna-registration")
@@ -115,13 +113,7 @@ def join():
                 setattr(c, field, getattr(form, field).data)
             db.session.add(c)
             db.session.commit()
-            with lock:
-                writer = get_csv_writer()
-                writer.writerow(
-                    [form.name.data, form.gender.data,
-                     form.stu_number.data, form.department.data,
-                     form.email.data, form.phone.data]
-                )
+
             head = "data:image/png;base64,"
             if cmp(form.pic_took.data[:22], head) == 0:
                 img_encoded = form.pic_took.data[22:]
@@ -143,14 +135,6 @@ def join():
         form=form,
         success=success,
         all_locales=all_locales)
-
-
-def get_csv_writer():
-    if not hasattr(g, 'csv_file'):
-        f = open(CSV_FILE, 'a+')
-        g.csv_file = f
-
-    return csv.writer(g.csv_file)
 
 
 app.config['BASIC_AUTH_USERNAME'] = 'tunar'
