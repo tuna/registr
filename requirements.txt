@@ -4,5 +4,4 @@ CoffeeScript
 Flask-WTF
 Flask-Babel
 Flask-SQLAlchemy
-pyOpenSSL
 -e babel
