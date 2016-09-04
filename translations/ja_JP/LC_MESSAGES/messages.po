@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-04 20:31+0800\n"
+"POT-Creation-Date: 2016-09-04 20:33+0800\n"
 "PO-Revision-Date: 2016-09-04 20:16+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja_JP\n"
@@ -55,8 +55,8 @@ msgid "Join TUNA"
 msgstr "参加ツーナ"
 
 #: templates/join.jade:19
-msgid "Register successfully"
-msgstr "記録が完了"
+msgid "Registered successfully"
+msgstr ""
 
 #: templates/join.jade:25
 msgid "Join Us"
@@ -83,4 +83,7 @@ msgstr ""
 
 #~ msgid "pic_took"
 #~ msgstr "撮影"
+
+#~ msgid "Register successfully"
+#~ msgstr "記録が完了"
 
