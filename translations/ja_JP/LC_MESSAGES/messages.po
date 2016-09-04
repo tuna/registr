@@ -20,67 +20,67 @@ msgstr ""
 
 #: app.py:110
 msgid "image"
-msgstr ""
+msgstr "画像"
 
 #: app.py:111
 msgid "pic_took"
-msgstr ""
+msgstr "撮影"
 
 #: app.py:112
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: app.py:113
 msgid "Department"
-msgstr ""
+msgstr "学科"
 
 #: app.py:114
 msgid "Student Number (Optional)"
-msgstr ""
+msgstr "生徒番号"
 
 #: app.py:115
 msgid "Phone"
-msgstr ""
+msgstr "電話番号"
 
 #: app.py:116
 msgid "Email"
-msgstr ""
+msgstr "メール"
 
 #: app.py:118
 msgid "Gender"
-msgstr ""
+msgstr "性別"
 
 #: app.py:120
 msgid "Boy"
-msgstr ""
+msgstr "男"
 
 #: app.py:121
 msgid "Girl"
-msgstr ""
+msgstr "女"
 
 #: templates/join.jade:6
 msgid "Join TUNA"
-msgstr ""
+msgstr "参加ツーナ"
 
 #: templates/join.jade:19
 msgid "Register successfully"
-msgstr ""
+msgstr "記録が完了"
 
 #: templates/join.jade:25
 msgid "Join Us"
-msgstr ""
+msgstr "参加"
 
 #: templates/join.jade:32
 msgid "Take Photo"
-msgstr ""
+msgstr "撮影"
 
 #: templates/join.jade:34
 msgid "Retake"
-msgstr ""
+msgstr "再度撮影"
 
 #: templates/join.jade:36
 msgid "Let's go"
-msgstr ""
+msgstr "Let's go"
 
 #: templates/utils.jade:13
 msgid "Picture needed"
