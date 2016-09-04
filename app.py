@@ -1,10 +1,12 @@
 #!/usr/bin/env python2
 # -*- coding:utf-8 -*-
 from flask import Flask, request, g, render_template, redirect, session
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
+from flask_admin import Admin, expose
+from flask_admin.contrib.sqla import ModelView as _ModelView
+from flask_admin.base import AdminViewMeta
 from flask_babel import lazy_gettext as _, Babel
 from flask_sqlalchemy import SQLAlchemy
+from flask.ext.basicauth import BasicAuth
 from babel import Locale
 from threading import Lock
 from flask_wtf import Form
@@ -149,6 +151,44 @@ def get_csv_writer():
         g.csv_file = f
 
     return csv.writer(g.csv_file)
+
+
+app.config['BASIC_AUTH_USERNAME'] = 'tunar'
+app.config['BASIC_AUTH_PASSWORD'] = 'nobodyknowsthis'
+basic_auth = BasicAuth(app)
+
+
+class LimitAccessMeta(AdminViewMeta):
+    def __new__(cls, name, bases, d):
+        def find_method(m):
+            for base in bases:
+                try:
+                    return getattr(base, m)
+                except AttributeError:
+                    pass
+            raise AttributeError("No bases have method '{}'".format(m))
+
+        for view, url, methods in [
+                ('index_view', '/', None),
+                ('create_view', '/new/', ('GET', 'POST')),
+                ('edit_view', '/edit/', ('GET', 'POST')),
+                ('details_view', '/details/', None),
+                ('delete_view', '/delete/', ('POST',)),
+                ('action_view', '/action/', ('POST',)),
+                ('export', '/export/<export_type>/', None)]:
+            if methods is not None:
+                d[view] = basic_auth.required(
+                    expose(url, methods=methods)(
+                        find_method(view)))
+            else:
+                d[view] = basic_auth.required(
+                    expose(url)(
+                        find_method(view)))
+        return super().__new__(cls, name, bases, d)
+
+
+class ModelView(_ModelView, metaclass=LimitAccessMeta):
+    pass
 
 
 admin = Admin(app)
