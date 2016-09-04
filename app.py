@@ -124,12 +124,6 @@ def get_csv_writer():
 
 
 if __name__ == "__main__":
-    with open(CSV_FILE, 'rb') as f:
-        r = csv.reader(f)
-        for row in r:
-            row = map(lambda x: x.decode('utf-8'), row)
-
-    sslContext = ('server.crt', 'server.key')
-    app.run(host='0.0.0.0', debug=True, ssl_context=sslContext)
+    app.run(host='0.0.0.0', debug=True)
 
 # vim: ts=4 sw=4 sts=4 expandtab
