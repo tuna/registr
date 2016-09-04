@@ -42,6 +42,7 @@ app.config.update(
     BASIC_AUTH_USERNAME='tunar',
     BASIC_AUTH_PASSWORD='nobodyknowsthis',
     SECRET_KEY='29898604a6b00b7f8c1cf65183289321a6c8b7f1',
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,  # As suggested by flask_sqlalchemy
 )
 
 babel = Babel()
