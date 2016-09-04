@@ -28,11 +28,13 @@ def cmp(a, b):
 app = Flask("tuna-registration")
 
 
+#TODO: retrieve configuration from environment?
 app.config.update(
     BABEL_DEFAULT_LOCALE='en_US',
     SQLALCHEMY_DATABASE_URI='sqlite:///registration-2016-fall.db',
     BASIC_AUTH_USERNAME='tunar',
     BASIC_AUTH_PASSWORD='nobodyknowsthis',
+    SECRET_KEY='29898604a6b00b7f8c1cf65183289321a6c8b7f1',
 )
 
 babel = Babel()
@@ -42,8 +44,6 @@ app.jinja_env.globals['_'] = _
 babel.init_app(app)
 
 db = SQLAlchemy(app)
-
-app.secret_key = '29898604a6b00b7f8c1cf65183289321a6c8b7f1'
 
 all_locales = babel.list_translations() + [Locale('en', 'US')]
 
