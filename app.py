@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 from flask import Flask, request, render_template, redirect, session
 from flask_admin import Admin, expose
