@@ -17,6 +17,13 @@ import pyjade
 import base64
 
 
+# The original coffeescript filter registered by pyjade is wrong for
+# its results are wrapped with `script` tag
+@pyjade.register_filter('coffeescript')
+def coffeescript_filter(text, ast):
+    return coffeescript.compile(text)
+
+
 # According to this:
 # https://docs.python.org/3.0/whatsnew/3.0.html#ordering-comparisons
 # cmp is no longer supported in Python3, this is a 'official' workaround.
@@ -63,13 +70,6 @@ class Candidate(db.Model):
 
 # Create all tables if not existed
 db.create_all()
-
-
-# The original coffeescript filter registered by pyjade is wrong for
-# its results are wrapped with `script` tag
-@pyjade.register_filter('coffeescript')
-def coffeescript_filter(text, ast):
-    return coffeescript.compile(text)
 
 
 @babel.localeselector
