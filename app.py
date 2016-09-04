@@ -7,6 +7,7 @@ from flask_admin.base import AdminViewMeta
 from flask_babel import lazy_gettext as _, Babel
 from flask_sqlalchemy import SQLAlchemy
 from flask_basicauth import BasicAuth
+from flask_env_settings import Settings
 from babel import Locale
 from flask_wtf import Form
 from wtforms import StringField, RadioField, FileField, HiddenField
@@ -41,15 +42,19 @@ def cmp(a, b):
 app = Flask("tuna-registration")
 
 
-# TODO: retrieve configuration from environment?
 app.config.update(
-    BABEL_DEFAULT_LOCALE='en_US',
-    SQLALCHEMY_DATABASE_URI='sqlite:///registration-2016-fall.db',
-    BASIC_AUTH_USERNAME='tunar',
-    BASIC_AUTH_PASSWORD='nobodyknowsthis',
-    SECRET_KEY='29898604a6b00b7f8c1cf65183289321a6c8b7f1',
     SQLALCHEMY_TRACK_MODIFICATIONS=False,  # As suggested by flask_sqlalchemy
 )
+
+# retrieve configuration from environment
+Settings(app, rules={
+    "BABEL_DEFAULT_LOCALE": (str, "en_US"),
+    "SQLALCHEMY_DATABASE_URI": str,
+    "BASIC_AUTH_USERNAME": str,
+    "BASIC_AUTH_PASSWORD": str,
+    "SECRET_KEY": str,
+    "DEBUG": (bool, False),
+})
 
 babel = Babel()
 
