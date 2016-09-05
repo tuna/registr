@@ -208,7 +208,11 @@ admin = Admin(app, template_mode="bootstrap3")
 admin.add_view(ModelView(Candidate, db.session))
 
 # Boot-time initializations
-db.create_all()  # Create all tables if not existed
+try:
+    db.create_all()  # Create all tables if not existed
+except:
+    # this may fail when there are many process, it doesn't matter
+    pass
 os.makedirs(app.config["PICS_DIRECTORY"], exist_ok=True)  # mkdir for pics
 
 if __name__ == "__main__":
