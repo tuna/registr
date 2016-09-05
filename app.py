@@ -204,7 +204,7 @@ class ModelView(_ModelView, metaclass=LimitAccessMeta):
     pass
 
 
-admin = Admin(app)
+admin = Admin(app, template_mode="bootstrap3")
 admin.add_view(ModelView(Candidate, db.session))
 
 # Boot-time initializations
