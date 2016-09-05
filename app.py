@@ -89,7 +89,7 @@ def get_locale():
         return locale
 
     # Fall back to default locale
-    return 'en_US'
+    return None
 
 # Models
 db = SQLAlchemy(app)
