@@ -23,4 +23,4 @@ USER registr
 
 RUN /data/i18n compile
 
-CMD gunicorn --worker-class=gevent --workers=10 --access-logfile - app:app
+CMD gunicorn --worker-class=gevent --workers=10 --bind 0.0.0.0 --access-logfile - app:app
