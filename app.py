@@ -31,14 +31,6 @@ def coffeescript_filter(text, ast):
     return coffeescript.compile(text)
 
 
-# According to this:
-# https://docs.python.org/3.0/whatsnew/3.0.html#ordering-comparisons
-# cmp is no longer supported in Python3, this is a 'official' workaround.
-# TODO: remove it
-def cmp(a, b):
-    return (a > b) - (a < b)
-
-
 app = Flask("tuna-registration")
 
 
@@ -139,7 +131,7 @@ def join():
             db.session.commit()
 
             head = "data:image/png;base64,"
-            if cmp(form.pic_took.data[:22], head) == 0:
+            if form.pic_took.data.startswith(head):
                 img_encoded = form.pic_took.data[22:]
                 img = base64.b64decode(img_encoded)
                 file_name = "{}/{}_{}.png".format(
