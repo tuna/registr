@@ -54,6 +54,7 @@ Settings(app, rules={
     "BASIC_AUTH_PASSWORD": str,
     "SECRET_KEY": str,
     "DEBUG": (bool, False),
+    "PICS_DIRECTORY": str,
 })
 
 babel = Babel()
@@ -106,9 +107,6 @@ class Candidate(db.Model):
     email = db.Column(db.String(120), unique=True)
     gender = db.Column(db.Enum('男', '女'))
 
-# Create all tables if not existed
-db.create_all()
-
 
 class JoinForm(Form):
     image = FileField('image', [Optional()])
@@ -144,7 +142,8 @@ def join():
             if cmp(form.pic_took.data[:22], head) == 0:
                 img_encoded = form.pic_took.data[22:]
                 img = base64.b64decode(img_encoded)
-                file_name = "pics/{}_{}.png".format(
+                file_name = "{}/{}_{}.png".format(
+                    app.config['PICS_DIRECTORY'],
                     form.name.data, form.stu_number.data)
                 fp = open(file_name, 'wb')
                 fp.write(img)
@@ -215,6 +214,10 @@ class ModelView(_ModelView, metaclass=LimitAccessMeta):
 
 admin = Admin(app)
 admin.add_view(ModelView(Candidate, db.session))
+
+# Boot-time initializations
+db.create_all()  # Create all tables if not existed
+os.makedirs(app.config["PICS_DIRECTORY"], exist_ok=True)  # mkdir for pics
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
