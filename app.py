@@ -201,7 +201,8 @@ class LimitAccessMeta(AdminViewMeta):
 
 
 class ModelView(_ModelView, metaclass=LimitAccessMeta):
-    pass
+    can_export = True
+    export_types = ['json', 'yaml', 'csv', 'xls', 'xlsx']
 
 
 admin = Admin(app, template_mode="bootstrap3")

@@ -8,4 +8,5 @@ Flask-Admin
 Flask-BasicAuth
 sendgrid
 flask-env-settings
+tablib
 -e babel
