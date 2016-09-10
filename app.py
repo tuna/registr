@@ -40,12 +40,12 @@ app.config.update(
 # retrieve configuration from environment
 Settings(app, rules={
     "BABEL_DEFAULT_LOCALE": (str, "en_US"),
-    "SQLALCHEMY_DATABASE_URI": (str),
-    "BASIC_AUTH_USERNAME": (str),
-    "BASIC_AUTH_PASSWORD": (str),
-    "SECRET_KEY": (str),
+    "SQLALCHEMY_DATABASE_URI": str,
+    "BASIC_AUTH_USERNAME": str,
+    "BASIC_AUTH_PASSWORD": str,
+    "SECRET_KEY": str,
     "DEBUG": (bool, False),
-    "PICS_DIRECTORY": (str)
+    "PICS_DIRECTORY": str
 })
 
 babel = Babel()
