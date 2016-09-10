@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-10 21:00+0800\n"
+"POT-Creation-Date: 2016-09-10 21:26+0800\n"
 "PO-Revision-Date: 2015-09-23 16:48+0800\n"
 "Last-Translator: Xavier Yao <xavieryao@tuna.tsinghua.edu.cn>\n"
 "Language: zh_Hans_CN\n"
@@ -20,61 +20,65 @@ msgstr ""
 "X-Language: zh_CN\n"
 "X-Source-Language: C\n"
 
-#: app.py:109
+#: app.py:107
 msgid "Name"
 msgstr "姓名"
 
-#: app.py:110
+#: app.py:108
 msgid "Department"
 msgstr "院系"
 
-#: app.py:111
+#: app.py:109
 msgid "Student Number (Optional)"
 msgstr "学号 (选填)"
 
-#: app.py:112
+#: app.py:110
 msgid "Phone"
 msgstr "电话"
 
-#: app.py:113
+#: app.py:111
 msgid "Email"
 msgstr ""
 
-#: app.py:115
+#: app.py:113
 msgid "Gender"
 msgstr "性别"
 
-#: app.py:117
+#: app.py:115
 msgid "Boy"
 msgstr "男"
 
-#: app.py:118
+#: app.py:116
 msgid "Girl"
 msgstr "女"
 
-#: app.py:121
+#: app.py:119
 msgid "Team Preference"
 msgstr "想干什么"
 
-#: app.py:123
+#: app.py:121
 msgid "DevOps Team"
 msgstr "撸代码"
 
-#: app.py:124
+#: app.py:122
 msgid "Organizer Team"
 msgstr "办活动"
 
-#: app.py:125
+#: app.py:123
 msgid "Publicity Team"
 msgstr "搞大新闻"
 
-#: app.py:126
+#: app.py:124
 msgid "Member Team"
 msgstr "打酱油"
 
-#: app.py:151
+#: app.py:150
 msgid "You have already registered."
 msgstr "你已经注册过啦 : )"
+
+#: app.py:181
+msgid "Unknown Error 0x233333"
+msgstr "我们遇到了一个问题，请坐和放宽"
 
 #: templates/join.jade:6
 msgid "Join TUNA"
@@ -92,15 +96,7 @@ msgstr ""
 msgid "Join Us"
 msgstr "加入我们"
 
-#: templates/join.jade:38
-msgid "Take Photo"
-msgstr "拍摄照片"
-
-#: templates/join.jade:40
-msgid "Retake"
-msgstr "重新拍照"
-
-#: templates/join.jade:42
+#: templates/join.jade:34
 msgid "Let's go"
 msgstr "走你"
 
@@ -119,3 +115,9 @@ msgstr "需要你的照片哦～"
 
 #~ msgid "Register successfully"
 #~ msgstr ""
+
+#~ msgid "Take Photo"
+#~ msgstr "拍摄照片"
+
+#~ msgid "Retake"
+#~ msgstr "重新拍照"

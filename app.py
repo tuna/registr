@@ -129,52 +129,59 @@ class JoinForm(Form):
 @app.route('/', methods=['GET', 'POST'])
 def join():
     form = JoinForm(csrf_enabled=False)
-    if request.method == "POST":
+    try:
+        if request.method == "POST":
+            session["success"] = False
+            if form.validate():
+                # save data
+                c = Candidate()
+                for field in ['name', 'gender', 'stu_number', 'department',
+                              'email', 'phone', 'team']:
+                    setattr(c, field, getattr(form, field).data)
+                db.session.add(c)
+                try:
+                    db.session.commit()
+                except IntegrityError:
+                    session['success'] = False
+                    return render_template(
+                        'join.jade',
+                        form=form,
+                        success=False,
+                        err_msg=_('You have already registered.'),
+                        all_locales=all_locales)
+
+                today = datetime.date.today()
+                content = Content(
+                    "text/plain",
+                    template.format(year=today.year, month=today.month,
+                                    day=today.day))
+                to_email = EmailAddr(form.email.data)
+                mail = Mail(from_email, subject, to_email, content)
+                try:
+                    sg = get_sg()
+                    sg.client.mail.send.post(request_body=mail.get())
+                except Exception as e:
+                    print('error occurred when sending welcome mail')
+                    print(e)
+
+                session["success"] = True
+                return redirect("/")
+
+        success = session.get("success", False)
         session["success"] = False
-        if form.validate():
-            # save data
-            c = Candidate()
-            for field in ['name', 'gender', 'stu_number', 'department',
-                          'email', 'phone', 'team']:
-                setattr(c, field, getattr(form, field).data)
-            db.session.add(c)
-            try:
-                db.session.commit()
-            except IntegrityError:
-                session['success'] = False
-                return render_template(
-                    'join.jade',
-                    form=form,
-                    success=False,
-                    err_msg=_('You have already registered.'),
-                    all_locales=all_locales)
 
-            today = datetime.date.today()
-            content = Content(
-                "text/plain",
-                template.format(year=today.year, month=today.month,
-                                day=today.day))
-            to_email = EmailAddr(form.email.data)
-            mail = Mail(from_email, subject, to_email, content)
-            try:
-                sg = get_sg()
-                sg.client.mail.send.post(request_body=mail.get())
-            except Exception as e:
-                print('error occurred when sending welcome mail')
-                print(e)
-
-            session["success"] = True
-            return redirect("/")
-
-    success = session.get("success", False)
-    session["success"] = False
-
-    return render_template(
-        'join.jade',
-        form=form,
-        success=success,
-        all_locales=all_locales)
-
+        return render_template(
+            'join.jade',
+            form=form,
+            success=success,
+            all_locales=all_locales)
+    except:
+        return render_template(
+            'join.jade',
+            err_msg=_('Unknown Error 0x233333'),
+            form=form,
+            success=False,
+            all_locales=all_locales)
 
 # A basic admin interface to view candidates
 basic_auth = BasicAuth(app)
