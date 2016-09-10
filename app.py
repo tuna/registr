@@ -125,12 +125,13 @@ class JoinForm(Form):
             ('Jiangyou', _('Member Team')),
         ],
     )
-    team.data = random.randrange(len(team.choices))
 
 
 @app.route('/', methods=['GET', 'POST'])
 def join():
     form = JoinForm(csrf_enabled=False)
+    if form.team.data == 'None':
+        form.team.data = random.choice(form.team.choices)[0]
     try:
         if request.method == "POST":
             session["success"] = False
@@ -185,6 +186,7 @@ def join():
             success=False,
             all_locales=all_locales)
 
+
 # A basic admin interface to view candidates
 basic_auth = BasicAuth(app)
 
@@ -200,13 +202,13 @@ class LimitAccessMeta(AdminViewMeta):
             raise AttributeError("No bases have method '{}'".format(m))
 
         for view, url, methods in [
-                ('index_view', '/', None),
-                ('create_view', '/new/', ('GET', 'POST')),
-                ('edit_view', '/edit/', ('GET', 'POST')),
-                ('details_view', '/details/', None),
-                ('delete_view', '/delete/', ('POST',)),
-                ('action_view', '/action/', ('POST',)),
-                ('export', '/export/<export_type>/', None)]:
+            ('index_view', '/', None),
+            ('create_view', '/new/', ('GET', 'POST')),
+            ('edit_view', '/edit/', ('GET', 'POST')),
+            ('details_view', '/details/', None),
+            ('delete_view', '/delete/', ('POST',)),
+            ('action_view', '/action/', ('POST',)),
+            ('export', '/export/<export_type>/', None)]:
             if methods is not None:
                 d[view] = basic_auth.required(
                     expose(url, methods=methods)(
