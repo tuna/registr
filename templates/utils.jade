@@ -12,6 +12,8 @@ mixin render_field(field)
       else
         = field(placeholder=field.label.text, class="form-control floating-label", id=field.name)
     elif field.type == 'RadioField'
+      label
+        = field.label
       each value, label, index in field.choices
         .radio.radio-primary
           label

@@ -110,8 +110,8 @@ html(lang="en")
                 width: 320
                 
             errorCallback = (err)->
-              console.log "The following error occured:" + err.name
-              alert "The following error occured:" + err
+              console.log "The following error occurred:" + err.name
+              alert "The following error occurred:" + err
             
             successCallback = (stream)->
               video.src = window.URL.createObjectURL stream

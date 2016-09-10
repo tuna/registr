@@ -33,7 +33,6 @@ def coffeescript_filter(text, ast):
 
 app = Flask("tuna-registration")
 
-
 app.config.update(
     SQLALCHEMY_TRACK_MODIFICATIONS=False,  # As suggested by flask_sqlalchemy
 )
@@ -41,12 +40,12 @@ app.config.update(
 # retrieve configuration from environment
 Settings(app, rules={
     "BABEL_DEFAULT_LOCALE": (str, "en_US"),
-    "SQLALCHEMY_DATABASE_URI": str,
-    "BASIC_AUTH_USERNAME": str,
-    "BASIC_AUTH_PASSWORD": str,
-    "SECRET_KEY": str,
+    "SQLALCHEMY_DATABASE_URI": (str),
+    "BASIC_AUTH_USERNAME": (str),
+    "BASIC_AUTH_PASSWORD": (str),
+    "SECRET_KEY": (str),
     "DEBUG": (bool, False),
-    "PICS_DIRECTORY": str,
+    "PICS_DIRECTORY": (str)
 })
 
 babel = Babel()
@@ -84,6 +83,7 @@ def get_locale():
     # Fall back to default locale
     return None
 
+
 # Models
 db = SQLAlchemy(app)
 
@@ -98,6 +98,7 @@ class Candidate(db.Model):
     phone = db.Column(db.String(16), nullable=False)
     email = db.Column(db.String(120), unique=True)
     gender = db.Column(db.Enum('男', '女'))
+    team = db.Column(db.Enum('DevOpts', 'Organizer', 'Jiangyou', 'Publicity'))
 
 
 class JoinForm(Form):
@@ -114,6 +115,16 @@ class JoinForm(Form):
             ('男', _('Boy')),
             ('女', _('Girl'))
         ])
+    team = RadioField(
+        label=_('Team you prefer'),
+        choices=[
+            ('DevOpts', _('DevOpts Team')),
+            ('Organizer', _('Organizer Team')),
+            ('Publicity', _('Publicity Team')),
+            ('Jiangyou', _('Outsider Team')),
+        ],
+        # label=_('Which team do you prefer')
+    )
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -125,7 +136,7 @@ def join():
             # save data
             c = Candidate()
             for field in ['name', 'gender', 'stu_number', 'department',
-                          'email', 'phone']:
+                          'email', 'phone', 'team']:
                 setattr(c, field, getattr(form, field).data)
             db.session.add(c)
             db.session.commit()
@@ -151,8 +162,9 @@ def join():
             mail = Mail(from_email, subject, to_email, content)
             try:
                 sg.client.mail.send.post(request_body=mail.get())
-            except Exception:
-                print('err')
+            except Exception as e:
+                print('error occurred when sending welcome mail')
+                print(e)
 
             session["success"] = True
             return redirect("/")
