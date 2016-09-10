@@ -15,9 +15,7 @@ from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, Email, Optional
 import coffeescript
 import pyjade
-import base64
 import sendgrid
-import os
 from sendgrid.helpers.mail import Content, Mail
 from sendgrid.helpers.mail import Email as EmailAddr
 import codecs
@@ -46,7 +44,6 @@ Settings(app, rules={
     "BASIC_AUTH_PASSWORD": str,
     "SECRET_KEY": str,
     "DEBUG": (bool, False),
-    "PICS_DIRECTORY": str,
     "SENDGRID_KEY": str
 })
 
@@ -104,8 +101,6 @@ class Candidate(db.Model):
 
 
 class JoinForm(Form):
-    image = FileField('image', [Optional()])
-    pic_took = HiddenField('pic_took', [Optional()])
     name = StringField(_('Name'), [InputRequired()])
     department = StringField(_('Department'), [InputRequired()])
     stu_number = StringField(_('Student Number (Optional)'), [Optional()])
@@ -150,18 +145,6 @@ def join():
                     success=False,
                     err_msg=_('You have already registered.'),
                     all_locales=all_locales)
-
-            head = "data:image/png;base64,"
-            if form.pic_took.data.startswith(head):
-                img_encoded = form.pic_took.data[22:]
-                img = base64.b64decode(img_encoded)
-                file_name = "{}/{}_{}.png".format(
-                    app.config['PICS_DIRECTORY'],
-                    form.name.data, form.stu_number.data)
-                fp = open(file_name, 'wb')
-                fp.write(img)
-                fp.flush()
-                fp.close()
 
             today = datetime.date.today()
             content = Content(
@@ -236,7 +219,6 @@ try:
 except:
     # this may fail when there are many process, it doesn't matter
     pass
-os.makedirs(app.config["PICS_DIRECTORY"], exist_ok=True)  # mkdir for pics
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)

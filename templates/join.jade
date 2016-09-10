@@ -40,13 +40,6 @@ html(lang="en")
               h2
                 = _("Join Us")
               form#join(autocomplete="off", method="POST", novalidate)
-                div#div_canvas
-                  video(id="video", width="320", height="240")
-                  canvas(id="canvas", width="320", height="240")
-                button#take_photo.btn.btn-primary(type="button")
-                  = _("Take Photo")
-                button#retake.btn.btn-primary(type="button")
-                  = _("Retake")
                 each field in form
                   +render_field(field)
                 button#submit.btn.btn-primary.pull-right(type="submit")
@@ -90,80 +83,3 @@ html(lang="en")
 
           # For browser which do not support it.
           #$('input[autofocus]').focus()
-          
-          $('#image').hide()
-          
-          $('#canvas').hide()
-          $('#retake').hide()
-          
-          canvas = document.getElementById "canvas"
-          context = canvas.getContext "2d"
-          video = document.getElementById "video"
-          
-          getUserMedia = navigator.getUserMedia or
-            navigator.webkitGetUserMedia or
-            navigator.mozGetUserMedia
-          
-          startCapture = ->
-            constrains =
-              audio: false
-              video:
-                facingMode: "user"
-                height: 240
-                width: 320
-                
-            errorCallback = (err)->
-              console.log "The following error occurred:" + err.name
-              alert "The following error occurred:" + err
-            
-            successCallback = (stream)->
-              video.src = window.URL.createObjectURL stream
-              video.onloadedmetadata = (e) ->
-                video.play()
-                canvas.width = video.videoWidth
-                canvas.height = video.videoHeight
-            try
-              getUserMedia.apply navigator, [constrains, successCallback, errorCallback]
-            catch e
-              console.log e
-          
-          takePhoto = ->
-            $('#canvas').show()
-            $('#video').hide()
-            context.drawImage video, 0, 0, canvas.width, canvas.height
-            $('#take_photo').hide()
-            $('#retake').show()
-            $('#pic_took').val canvas.toDataURL('image/png')
-            
-          retakePhoto = ->
-            $('#canvas').hide()
-            $('#video').show()
-            $('#take_photo').show()
-            $('#retake').hide()
-            $('#pic_took').val ''
-            startCapture()
-          
-          if getUserMedia isnt undefined
-            $('#retake').click retakePhoto
-            $('#take_photo').click takePhoto
-            startCapture()
-          else
-            # Fallback
-            console.log 'fallback'
-            $('#video').hide()
-            $('#canvas').hide()
-            $('#take_photo').click ->
-              $('#image').trigger "click"
-            $('#image').change ->
-              $('#msg-no-pic').remove()
-              loadImage $('#image').prop('files')[0],
-                (neoCanvas) ->
-                  neoCanvas.id = "canvas"
-                  canvas = neoCanvas
-                  $('#canvas').replaceWith neoCanvas
-                  $('#pic_took').val canvas.toDataURL('image/png')
-                  $('#image').val null
-                ,
-                maxWidth: canvas.width
-                maxHeight: canvas.height
-                orientation: true
