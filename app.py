@@ -103,7 +103,7 @@ class Candidate(db.Model):
 
 class JoinForm(Form):
     image = FileField('image', [Optional()])
-    pic_took = HiddenField('pic_took', [InputRequired()])
+    pic_took = HiddenField('pic_took', [Optional()])
     name = StringField(_('Name'), [InputRequired()])
     department = StringField(_('Department'), [InputRequired()])
     stu_number = StringField(_('Student Number (Optional)'), [Optional()])
