@@ -25,6 +25,9 @@ html(lang="en")
               if success  
                 .alert.alert-success#msg-success
                   = _("Registered successfully") | safe
+              if err_msg
+                .alert.alert-warning
+                  = err_msg | safe
               div.btn-group.pull-right
                 button(type="button", class="btn btn-default dropdown-toggle ", data-toggle="dropdown")
                   = _("Language")

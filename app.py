@@ -22,6 +22,7 @@ from sendgrid.helpers.mail import Content, Mail
 from sendgrid.helpers.mail import Email as EmailAddr
 import codecs
 import datetime
+from sqlalchemy.exc import IntegrityError
 
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -139,7 +140,16 @@ def join():
                           'email', 'phone', 'team']:
                 setattr(c, field, getattr(form, field).data)
             db.session.add(c)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except IntegrityError:
+                session['success'] = False
+                return render_template(
+                    'join.jade',
+                    form=form,
+                    success=False,
+                    err_msg=_('You have already registered.'),
+                    all_locales=all_locales)
 
             head = "data:image/png;base64,"
             if form.pic_took.data.startswith(head):
