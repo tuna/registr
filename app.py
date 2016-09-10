@@ -59,8 +59,8 @@ all_locales = babel.list_translations() + [Locale('en', 'US')]
 
 # setup sendgrid
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-from_email = EmailAddr("peiran.yao@tuna.tsinghua.edu.cn")
-subject = "Hello World from the SendGrid Python Library!"
+from_email = EmailAddr("staff@tuna.tsinghua.edu.cn")
+subject = "Welcome to TUNA!"
 template = codecs.open("mail_template.txt", 'r', 'UTF-8').read()
 
 

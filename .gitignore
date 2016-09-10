@@ -93,6 +93,9 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# PyCharm
+.idea/
+
 # Our files
 sendgrid.env
 pics
