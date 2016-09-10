@@ -21,6 +21,7 @@ from sendgrid.helpers.mail import Email as EmailAddr
 import codecs
 import datetime
 from sqlalchemy.exc import IntegrityError
+import random
 
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -124,6 +125,7 @@ class JoinForm(Form):
             ('Jiangyou', _('Member Team')),
         ],
     )
+    team.data = random.randrange(len(team.choices))
 
 
 @app.route('/', methods=['GET', 'POST'])
