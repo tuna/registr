@@ -98,7 +98,7 @@ class Candidate(db.Model):
     phone = db.Column(db.String(16), nullable=False)
     email = db.Column(db.String(120), unique=True)
     gender = db.Column(db.Enum('男', '女'))
-    team = db.Column(db.Enum('DevOpts', 'Organizer', 'Jiangyou', 'Publicity'))
+    team = db.Column(db.Enum('DevOps', 'Organizer', 'Publicity', 'Jiangyou'))
 
 
 class JoinForm(Form):
@@ -116,14 +116,13 @@ class JoinForm(Form):
             ('女', _('Girl'))
         ])
     team = RadioField(
-        label=_('Team you prefer'),
+        label=_('Team Preference'),
         choices=[
-            ('DevOpts', _('DevOpts Team')),
+            ('DevOps', _('DevOps Team')),
             ('Organizer', _('Organizer Team')),
             ('Publicity', _('Publicity Team')),
-            ('Jiangyou', _('Outsider Team')),
+            ('Jiangyou', _('Member Team')),
         ],
-        # label=_('Which team do you prefer')
     )
 
 

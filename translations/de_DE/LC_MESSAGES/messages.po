@@ -55,7 +55,7 @@ msgid "Team you prefer"
 msgstr ""
 
 #: app.py:121
-msgid "DevOpts Team"
+msgid "DevOps Team"
 msgstr ""
 
 #: app.py:122
@@ -67,7 +67,7 @@ msgid "Publicity Team"
 msgstr ""
 
 #: app.py:124
-msgid "Outsider Team"
+msgid "Member Team"
 msgstr ""
 
 #: templates/join.jade:6

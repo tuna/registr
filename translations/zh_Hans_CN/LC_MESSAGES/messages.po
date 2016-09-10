@@ -53,11 +53,11 @@ msgid "Girl"
 msgstr "女"
 
 #: app.py:119
-msgid "Team you prefer"
+msgid "Team Preference"
 msgstr "想干什么"
 
 #: app.py:121
-msgid "DevOpts Team"
+msgid "DevOps Team"
 msgstr "撸代码"
 
 #: app.py:122
@@ -69,7 +69,7 @@ msgid "Publicity Team"
 msgstr "搞大新闻"
 
 #: app.py:124
-msgid "Outsider Team"
+msgid "Member Team"
 msgstr "打酱油"
 
 #: templates/join.jade:6
