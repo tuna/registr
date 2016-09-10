@@ -59,10 +59,13 @@ babel.init_app(app)
 all_locales = babel.list_translations() + [Locale('en', 'US')]
 
 # setup sendgrid
-sg = sendgrid.SendGridAPIClient(apikey=app.config['SENDGRID_KEY'])
 from_email = EmailAddr("staff@tuna.tsinghua.edu.cn")
 subject = "Welcome to TUNA!"
 template = codecs.open("mail_template.txt", 'r', 'UTF-8').read()
+
+
+def get_sg():
+    return sendgrid.SendGridAPIClient(apikey=app.config['SENDGRID_KEY'])
 
 
 @babel.localeselector
@@ -171,6 +174,7 @@ def join():
             to_email = EmailAddr(form.email.data)
             mail = Mail(from_email, subject, to_email, content)
             try:
+                sg = get_sg()
                 sg.client.mail.send.post(request_body=mail.get())
             except Exception as e:
                 print('error occurred when sending welcome mail')
