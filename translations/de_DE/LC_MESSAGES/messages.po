@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-04 20:33+0800\n"
+"POT-Creation-Date: 2016-09-10 10:37+0800\n"
 "PO-Revision-Date: 2016-09-04 20:21+0800\n"
 "Last-Translator: Qi Xiao <xiaqqaix@gmail.com>\n"
 "Language: de_DE\n"
@@ -18,37 +18,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: app.py:112
+#: app.py:107
 msgid "Name"
 msgstr "Name"
 
-#: app.py:113
+#: app.py:108
 msgid "Department"
 msgstr "Fakultät"
 
-#: app.py:114
+#: app.py:109
 msgid "Student Number (Optional)"
 msgstr "Studentnummer (optional)"
 
-#: app.py:115
+#: app.py:110
 msgid "Phone"
 msgstr "Telefonnummer"
 
-#: app.py:116
+#: app.py:111
 msgid "Email"
 msgstr "Email"
 
-#: app.py:118
+#: app.py:113
 msgid "Gender"
 msgstr "Geschlecht"
 
-#: app.py:120
+#: app.py:115
 msgid "Boy"
 msgstr "Junge"
 
-#: app.py:121
+#: app.py:116
 msgid "Girl"
 msgstr "Mädchen"
+
+#: app.py:119
+msgid "Team you prefer"
+msgstr ""
+
+#: app.py:121
+msgid "DevOpts Team"
+msgstr ""
+
+#: app.py:122
+msgid "Organizer Team"
+msgstr ""
+
+#: app.py:123
+msgid "Publicity Team"
+msgstr ""
+
+#: app.py:124
+msgid "Outsider Team"
+msgstr ""
 
 #: templates/join.jade:6
 msgid "Join TUNA"
@@ -58,22 +78,27 @@ msgstr "TUNA beitreten"
 msgid "Registered successfully"
 msgstr "Erfolgreich registriert"
 
-#: templates/join.jade:25
+#: templates/join.jade:22
+msgid "Language"
+msgstr ""
+
+#: templates/join.jade:29
 msgid "Join Us"
 msgstr "Uns beitreten"
 
-#: templates/join.jade:32
+#: templates/join.jade:36
 msgid "Take Photo"
 msgstr "Foto machen"
 
-#: templates/join.jade:34
+#: templates/join.jade:38
 msgid "Retake"
 msgstr "machen wieder"
 
-#: templates/join.jade:36
+#: templates/join.jade:40
 msgid "Let's go"
 msgstr "Los!"
 
-#: templates/utils.jade:13
+#: templates/utils.jade:15
 msgid "Picture needed"
 msgstr "Foto benötigt"
+
