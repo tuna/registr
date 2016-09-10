@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-10 10:37+0800\n"
+"POT-Creation-Date: 2016-09-10 21:00+0800\n"
 "PO-Revision-Date: 2016-09-04 14:42+0200\n"
 "Last-Translator: Qi Xiao <xiaqqaix@gmail.com>\n"
 "Language: nl_NL\n"
@@ -18,56 +18,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: app.py:107
+#: app.py:109
 msgid "Name"
 msgstr "Naam"
 
-#: app.py:108
+#: app.py:110
 msgid "Department"
 msgstr "Faculteit"
 
-#: app.py:109
+#: app.py:111
 msgid "Student Number (Optional)"
 msgstr "Studentennummer (Onverplicht)"
 
-#: app.py:110
+#: app.py:112
 msgid "Phone"
 msgstr "Telefoonnummer"
 
-#: app.py:111
+#: app.py:113
 msgid "Email"
 msgstr "E-mail"
 
-#: app.py:113
+#: app.py:115
 msgid "Gender"
 msgstr "Geslacht"
 
-#: app.py:115
+#: app.py:117
 msgid "Boy"
 msgstr "Jongen"
 
-#: app.py:116
+#: app.py:118
 msgid "Girl"
 msgstr "Meisje"
 
-#: app.py:119
+#: app.py:121
 msgid "Team Preference"
 msgstr ""
 
-#: app.py:121
+#: app.py:123
 msgid "DevOps Team"
 msgstr ""
 
-#: app.py:122
+#: app.py:124
 msgid "Organizer Team"
 msgstr ""
 
-#: app.py:123
+#: app.py:125
 msgid "Publicity Team"
 msgstr ""
 
-#: app.py:124
+#: app.py:126
 msgid "Member Team"
+msgstr ""
+
+#: app.py:151
+msgid "You have already registered."
 msgstr ""
 
 #: templates/join.jade:6
@@ -78,23 +82,23 @@ msgstr "Tot TUNA Toetreden"
 msgid "Registered successfully"
 msgstr "Succesvol Geregistreerd"
 
-#: templates/join.jade:22
+#: templates/join.jade:24
 msgid "Language"
 msgstr ""
 
-#: templates/join.jade:29
+#: templates/join.jade:31
 msgid "Join Us"
 msgstr "Tot Ons Toetreden"
 
-#: templates/join.jade:36
+#: templates/join.jade:38
 msgid "Take Photo"
 msgstr "Foto Nemen"
 
-#: templates/join.jade:38
+#: templates/join.jade:40
 msgid "Retake"
 msgstr "Nemen Weer"
 
-#: templates/join.jade:40
+#: templates/join.jade:42
 msgid "Let's go"
 msgstr "Laten We Gaan"
 
