@@ -166,6 +166,8 @@ def join():
         except smtplib.SMTPRecipientsRefused:
             err_msg = _('Mail is refused.')
         except:
+            import traceback
+            traceback.print_exc()
             err_msg = _('Unknown Error 0x233333')
         else:
             session["success"] = True
