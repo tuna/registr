@@ -151,47 +151,34 @@ def join():
     form = JoinForm(csrf_enabled=False)
     if form.team.data == 'None':
         form.team.data = random.choice(form.team.choices)[0]
-    try:
-        if request.method == "POST":
-            session["success"] = False
-            if form.validate():
-                # save data
-                c = Candidate()
-                for field in ['name', 'gender', 'stu_number', 'department',
-                              'email', 'phone', 'team']:
-                    setattr(c, field, getattr(form, field).data)
-                db.session.add(c)
-                try:
-                    db.session.commit()
-                except IntegrityError:
-                    session['success'] = False
-                    return render_template(
-                        'join.jade',
-                        form=form,
-                        success=False,
-                        err_msg=_('You have already registered.'),
-                        all_locales=all_locales)
 
-                send_mail(form.email.data)
+    err_msg = None
+    if request.method == "POST" and form.validate():
+        # save data
+        c = Candidate()
+        form.populate_obj(c)
+        db.session.add(c)
+        try:
+            db.session.commit()
+            send_mail(form.email.data)
+        except IntegrityError:
+            err_msg = _('You have already registered.')
+        except smtplib.SMTPRecipientsRefused:
+            err_msg = _('Mail is refused.')
+        except:
+            err_msg = _('Unknown Error 0x233333')
+        else:
+            session["success"] = True
+            return redirect("/")
 
-                session["success"] = True
-                return redirect("/")
+    success = session.pop("success", False)
 
-        success = session.get("success", False)
-        session["success"] = False
-
-        return render_template(
-            'join.jade',
-            form=form,
-            success=success,
-            all_locales=all_locales)
-    except:
-        return render_template(
-            'join.jade',
-            err_msg=_('Unknown Error 0x233333'),
-            form=form,
-            success=False,
-            all_locales=all_locales)
+    return render_template(
+        'join.jade',
+        form=form,
+        success=success,
+        err_msg=err_msg,
+        all_locales=all_locales)
 
 
 # A basic admin interface to view candidates
