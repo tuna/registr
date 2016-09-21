@@ -17,4 +17,4 @@ x教 xxxx
 新学期，新气象。希望因为你的加入，新的一年变得更好。
 
 清华大学 TUNA 协会
-{today.year}年{today.month}月{today.day}日
+{year}年{month}月{day}日

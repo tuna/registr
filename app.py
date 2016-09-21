@@ -73,7 +73,10 @@ def make_smtp():
 def send_mail(to):
     today = datetime.date.today()
     with open("mail_template.txt") as template:
-        msg = MIMEText(template.read().format(today=today))
+        msg = MIMEText(template.read().format(
+            year=today.year,
+            month=today.month,
+            day=today.day))
     msg['Subject'] = "Welcome to TUNA!"
     msg['From'] = app.config['SMTP_USER']
     msg['To'] = to
