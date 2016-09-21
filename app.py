@@ -186,6 +186,8 @@ def join():
             success=success,
             all_locales=all_locales)
     except:
+        import traceback
+        traceback.print_stack()
         return render_template(
             'join.jade',
             err_msg=_('Unknown Error 0x233333'),
