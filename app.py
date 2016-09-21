@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 import coffeescript
 import pyjade
-import sendgrid
 import datetime
 import random
 import smtplib
@@ -82,10 +81,6 @@ def send_mail(to):
     msg['To'] = to
     with make_smtp() as smtp:
         smtp.send_message(msg)
-
-
-def get_sg():
-    return sendgrid.SendGridAPIClient(apikey=app.config['SENDGRID_KEY'])
 
 
 @babel.localeselector
