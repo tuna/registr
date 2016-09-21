@@ -3,9 +3,9 @@
 import coffeescript
 import pyjade
 import sendgrid
-import codecs
 import datetime
 import random
+import smtplib
 from flask import Flask, request, render_template, redirect, session
 from flask_admin import Admin, expose
 from flask_admin.contrib.sqla import ModelView as _ModelView
@@ -19,9 +19,8 @@ from flask_wtf import Form
 from wtforms import StringField, RadioField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, Email, Optional
-from sendgrid.helpers.mail import Content, Mail
-from sendgrid.helpers.mail import Email as EmailAddr
 from sqlalchemy.exc import IntegrityError
+from email.mime.text import MIMEText
 
 
 # The original coffeescript filter registered by pyjade is wrong for
@@ -45,7 +44,10 @@ Settings(app, rules={
     "BASIC_AUTH_PASSWORD": str,
     "SECRET_KEY": str,
     "DEBUG": (bool, False),
-    "SENDGRID_KEY": str
+    "SENDGRID_KEY": str,
+    "SMTP_SERVER": str,
+    "SMTP_USER": str,
+    "SMTP_PASS": str,
 })
 
 babel = Babel()
@@ -56,10 +58,27 @@ babel.init_app(app)
 
 all_locales = babel.list_translations() + [Locale('en', 'US')]
 
-# setup sendgrid
-from_email = EmailAddr("staff@tuna.tsinghua.edu.cn")
-subject = "Welcome to TUNA!"
-template = codecs.open("mail_template.txt", 'r', 'UTF-8').read()
+
+# setup smtp
+def make_smtp():
+    smtp = smtplib.SMTP(app.config['SMTP_SERVER'])
+    status, msg = smtp.login(
+        user=app.config['SMTP_USER'],
+        password=app.config['SMTP_PASS'])
+    if status != 235:
+        raise Exception("Fail to login: {msg}".format(msg=msg))
+    return smtp
+
+
+def send_mail(to):
+    today = datetime.date.today()
+    with open("mail_template.txt") as template:
+        msg = MIMEText(template.read().format(today=today))
+    msg['Subject'] = "Welcome to TUNA!"
+    msg['From'] = app.config['SMTP_USER']
+    msg['To'] = to
+    with make_smtp() as smtp:
+        smtp.send_message(msg)
 
 
 def get_sg():
@@ -153,19 +172,7 @@ def join():
                         err_msg=_('You have already registered.'),
                         all_locales=all_locales)
 
-                today = datetime.date.today()
-                content = Content(
-                    "text/plain",
-                    template.format(year=today.year, month=today.month,
-                                    day=today.day))
-                to_email = EmailAddr(form.email.data)
-                mail = Mail(from_email, subject, to_email, content)
-                try:
-                    sg = get_sg()
-                    sg.client.mail.send.post(request_body=mail.get())
-                except Exception as e:
-                    print('error occurred when sending welcome mail')
-                    print(e)
+                send_mail(form.email.data)
 
                 session["success"] = True
                 return redirect("/")
