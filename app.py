@@ -10,7 +10,7 @@ from flask_basicauth import BasicAuth
 from flask_env_settings import Settings
 from babel import Locale
 from flask_wtf import Form
-from wtforms import StringField, RadioField, FileField, HiddenField
+from wtforms import StringField, RadioField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, Email, Optional
 import coffeescript
@@ -202,13 +202,13 @@ class LimitAccessMeta(AdminViewMeta):
             raise AttributeError("No bases have method '{}'".format(m))
 
         for view, url, methods in [
-            ('index_view', '/', None),
-            ('create_view', '/new/', ('GET', 'POST')),
-            ('edit_view', '/edit/', ('GET', 'POST')),
-            ('details_view', '/details/', None),
-            ('delete_view', '/delete/', ('POST',)),
-            ('action_view', '/action/', ('POST',)),
-            ('export', '/export/<export_type>/', None)]:
+                ('index_view', '/', None),
+                ('create_view', '/new/', ('GET', 'POST')),
+                ('edit_view', '/edit/', ('GET', 'POST')),
+                ('details_view', '/details/', None),
+                ('delete_view', '/delete/', ('POST',)),
+                ('action_view', '/action/', ('POST',)),
+                ('export', '/export/<export_type>/', None)]:
             if methods is not None:
                 d[view] = basic_auth.required(
                     expose(url, methods=methods)(
