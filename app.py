@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+import coffeescript
+import pyjade
+import sendgrid
+import codecs
+import datetime
+import random
 from flask import Flask, request, render_template, redirect, session
 from flask_admin import Admin, expose
 from flask_admin.contrib.sqla import ModelView as _ModelView
@@ -13,15 +19,9 @@ from flask_wtf import Form
 from wtforms import StringField, RadioField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, Email, Optional
-import coffeescript
-import pyjade
-import sendgrid
 from sendgrid.helpers.mail import Content, Mail
 from sendgrid.helpers.mail import Email as EmailAddr
-import codecs
-import datetime
 from sqlalchemy.exc import IntegrityError
-import random
 
 
 # The original coffeescript filter registered by pyjade is wrong for
