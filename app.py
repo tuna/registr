@@ -43,7 +43,6 @@ Settings(app, rules={
     "BASIC_AUTH_PASSWORD": str,
     "SECRET_KEY": str,
     "DEBUG": (bool, False),
-    "SENDGRID_KEY": str,
     "SMTP_SERVER": str,
     "SMTP_USER": str,
     "SMTP_PASS": str,
