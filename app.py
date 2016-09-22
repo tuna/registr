@@ -153,10 +153,10 @@ def join():
     err_msg = None
     if request.method == "POST" and form.validate():
         # save data
-        c = Candidate()
-        form.populate_obj(c)
-        db.session.add(c)
         try:
+            c = Candidate()
+            form.populate_obj(c)
+            db.session.add(c)
             db.session.commit()
             send_mail(form.email.data)
         except IntegrityError:
