@@ -1,6 +1,6 @@
 pyjade
 flask
-CoffeeScript
+CoffeeScript==1.1.2
 Flask-WTF
 Flask-Babel
 Flask-SQLAlchemy
