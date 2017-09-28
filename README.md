@@ -1,40 +1,67 @@
-Registr
-=======
+# Registr
 
 A "simple" web-based registering tool.
 
-Installation
-------------
+## Installation
 
-Create a virtualenv if desired:
+### With Docker
 
-```
-$ virtualenv venv
-$ source venv/bin/activate
-(venv)$
-```
-
-Install dependencies:
+clone this git repo and build docker image:
 
 ```
-$ pip install -r requirements.txt
+~> sudo docker build -t tuna/registr .
 ```
 
-Run it!
+That's all:
 
 ```
-$ python app.py
+~> sudo docker images | grep registr
 ```
 
-Or run it with `gunicorn`:
+### Without Docker
+
+See contents of `Dockerfiles` please.
+
+## Usage
+
+Create an empty sqlite database:
+
 ```
-$ pip install gunicorn gevent
-$ gunicorn --worker-class=gevent --workers=10 --log-level debug --access-logfile - --reload app:app
+~> touch /path/to/registration.db
 ```
 
-i18n
-----
+Then create a container with following command:
 
-See the `i18n` script
+```
+~> sudo docker run -it --rm --name=registr \
+        -p 80:8000 \
+        -v /path/to/registration.db:/data/registr.db \
+        -e FLASK_BASIC_AUTH_USERNAME=username \
+        -e FLASK_BASIC_AUTH_PASSWORD=password \
+        -e FLASK_SECRET_KEY='A very long secret key' \
+        -e "FLASK_SQLALCHEMY_DATABASE_URI=sqlite:////data/registr.db" \
+        -e FLASK_BABEL_DEFAULT_LOCALE=zh_Hans_CN \
+        tuna/registr
+```
 
-NOTE: If dependencies are installed in virtualenv, remember to run `i18n` in virtualenv.
+Options:
+* `FLASK_BASIC_AUTH_USERNAME`: username for admin page
+* `FLASK_BASIC_AUTH_PASSWORD`: password for admin page
+* `FLASK_SECRET_KEY`: secret key used by flask in client-end session, keep it safe and unpredictable
+* `FLASK_BABEL_DEFAULT_LOCALE`: default locale
+
+## Add New Languages
+
+Currently, we support following locales:
+
+* zh\_Hans\_CN
+* de\_DE
+* ja\_JP
+* nl\_NL
+* en\_US
+
+If new one is required, install dependencies in `requirements.txt` and run:
+
+```
+~> ./i18n init <locale-name>
+```
