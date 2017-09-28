@@ -43,9 +43,6 @@ Settings(app, rules={
     "BASIC_AUTH_PASSWORD": str,
     "SECRET_KEY": str,
     "DEBUG": (bool, False),
-    "SMTP_SERVER": str,
-    "SMTP_USER": str,
-    "SMTP_PASS": str,
 })
 
 babel = Babel()
@@ -55,31 +52,6 @@ app.jinja_env.globals['_'] = _
 babel.init_app(app)
 
 all_locales = babel.list_translations() + [Locale('en', 'US')]
-
-
-# setup smtp
-def make_smtp():
-    smtp = smtplib.SMTP(app.config['SMTP_SERVER'])
-    status, msg = smtp.login(
-        user=app.config['SMTP_USER'],
-        password=app.config['SMTP_PASS'])
-    if status != 235:
-        raise Exception("Fail to login: {msg}".format(msg=msg))
-    return smtp
-
-
-def send_mail(to):
-    today = datetime.date.today()
-    with open("mail_template.txt") as template:
-        msg = MIMEText(template.read().format(
-            year=today.year,
-            month=today.month,
-            day=today.day))
-    msg['Subject'] = "Welcome to TUNA!"
-    msg['From'] = app.config['SMTP_USER']
-    msg['To'] = to
-    with make_smtp() as smtp:
-        smtp.send_message(msg)
 
 
 @babel.localeselector
@@ -157,11 +129,8 @@ def join():
             form.populate_obj(c)
             db.session.add(c)
             db.session.commit()
-            send_mail(form.email.data)
         except IntegrityError:
             err_msg = _('You have already registered.')
-        except smtplib.SMTPRecipientsRefused:
-            err_msg = _('Mail is refused.')
         except:
             import traceback
             traceback.print_exc()
