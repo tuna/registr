@@ -90,6 +90,7 @@ class Candidate(db.Model):
     email = db.Column(db.String(120), unique=True)
     gender = db.Column(db.Enum('男', '女'))
     team = db.Column(db.Enum('DevOps', 'Organizer', 'Publicity', 'Jiangyou'))
+    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 
 class JoinForm(Form):
