@@ -23,8 +23,8 @@ msgid "Name"
 msgstr "Name"
 
 #: app.py:108
-msgid "Department"
-msgstr "Fakultät"
+msgid "Department (Optional)"
+msgstr "Fakultät (optional)"
 
 #: app.py:109
 msgid "Student Number (Optional)"

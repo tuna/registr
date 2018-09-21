@@ -95,7 +95,7 @@ class Candidate(db.Model):
 
 class JoinForm(Form):
     name = StringField(_('Name'), [InputRequired()])
-    department = StringField(_('Department'), [InputRequired()])
+    department = StringField(_('Department (Optional)'), [Optional()])
     stu_number = StringField(_('Student Number (Optional)'), [Optional()])
     phone = StringField(_('Phone'), [InputRequired()])
     email = EmailField(_('Email'), [Email()])

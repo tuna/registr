@@ -23,7 +23,7 @@ msgid "Name"
 msgstr "名前"
 
 #: app.py:108
-msgid "Department"
+msgid "Department (Optional)"
 msgstr "学科"
 
 #: app.py:109
