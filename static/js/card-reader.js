@@ -60,15 +60,7 @@ initCardReader = ($requestBtn, callback) => {
 
     serial.getPorts().then(ports => {
         if (ports.length == 0) {
-            console.log('No devices found.');
-
-            serial.requestPort().then(selectedPort => {
-                port = selectedPort;
-                connect();
-            }).catch(error => {
-                console.log('Connection error: ' + error);
-            });
-
+            console.log('No authorized devices.');
         } else {
             port = ports[0];
             connect();
