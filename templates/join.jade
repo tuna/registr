@@ -37,7 +37,7 @@ html(lang="en")
                     li
                       a(href=url_for('join', locale=translation))
                         = translation.get_language_name()
-              h2
+              h2#magic_trigger
                 = _("Join Us")
               form#join(autocomplete="off", method="POST", novalidate)
                 each field in form
@@ -56,6 +56,8 @@ html(lang="en")
     +link_js("bootstrap3-typeahead.min.js")
     +link_js("load-image.all.min.js")
     +link_js("adapter.js")
+    +link_js("serial.js")
+    +link_js("card-reader.js")
 
     script
       :coffeescript
@@ -69,9 +71,16 @@ html(lang="en")
             minLength: 0
 
           $('form#join').submit ->
-            $('button#submit').disable()
+            $('button#submit').prop('disabled', true)
 
           $.material.init()
 
           # For browser which do not support it.
           #$('input[autofocus]').focus()
+
+          cardReaderCallback = (stu_number, name, gender) ->
+            $('#name').val(name).trigger('paste')
+            $('#stu_number').val(stu_number).trigger('paste')
+            $('input[name=gender]').prop('checked', false).filter('[value='+gender+']').prop('checked', true)
+
+          initCardReader($('#magic_trigger'), cardReaderCallback)
